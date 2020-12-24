@@ -1,0 +1,19 @@
+.Nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nav_header {
+    margin-left: 10vw;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 25%;
+    align-items: center;
+    margin-right: 10vw;
+}

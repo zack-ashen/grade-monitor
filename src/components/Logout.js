@@ -1,12 +1,14 @@
 import React from "react";
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import Login from "./Login";
+import { GoogleLogout } from 'react-google-login';
+import { useHistory } from "react-router-dom";
 
 const clientId= '635569088479-k8bfdrqmsmaevd76n3sdsfnqfsnc4kqh.apps.googleusercontent.com';
 
 function Logout() {
+    let history = useHistory();
+
     const onSuccess = () => {
-        alert('Logout made successfully.');
+        history.push('/');
     }
 
     return (
@@ -15,6 +17,9 @@ function Logout() {
                 clientId={clientId}
                 buttonText="Sign Out"
                 onLogoutSuccess={onSuccess}
+                render={renderProps => (
+                    <button onClick={renderProps.onClick} disabled={renderProps.disabled} id="sign_out">Sign Out</button>
+                )}
             />
         </div>
     );

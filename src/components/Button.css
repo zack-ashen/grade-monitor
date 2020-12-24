@@ -16,6 +16,17 @@ button {
     font-size: 1vw;
 }
 
+#sign_out {
+    background-color: #DE3643;
+    border-color: #CB2835;
+    border-style: solid;
+    border-width: 0.15vw;
+    border-radius: 0.5vw;
+    width: 11vw;
+    height: 2.6vw;
+    font-size: 1vw;
+}
+
 
 /* TODO */
 #class {
@@ -24,5 +35,12 @@ button {
 
 /* TODO */
 #add_class {
-
+    background-color: #36DEA3;
+    border-color: #33CB95;
+    border-style: solid;
+    border-width: 0.15vw;
+    border-radius: 0.5vw;
+    width: 11vw;
+    height: 2.6vw;
+    font-size: 1vw;
 }
