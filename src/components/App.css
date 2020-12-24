@@ -1,0 +1,12 @@
+.App {
+    margin: 0;
+    text-align: center;
+    margin-top:7vw;
+}
+
+#blurb-text {
+    font-size: 1vw;
+    width: 34vw;
+    margin: 0 0 2vw 0;
+    line-height: 1.6vw;
+}
