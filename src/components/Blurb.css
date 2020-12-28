@@ -1,7 +1,26 @@
-.Blurb {
+.blurb {
     background-color: #FFFFFF;
     box-shadow: 0.26vw 0.26vw #CCCFD1;
     display: inline-block;
     border-radius: 1vw;
+}
+
+.blurb-text {
+    font-size: 1vw;
+    width: 34vw;
+    line-height: 1.6vw;
+    text-align: center;
+}
+
+#signin-blurb {
     padding: 2vw;
+}
+
+#signin-blurb-text {
+    margin: 0 0 2vw 0;
+}
+
+#message-blurb {
+    padding: 0.75vw;
+    margin-top: 10vw;
 }

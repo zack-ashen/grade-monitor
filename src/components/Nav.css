@@ -17,3 +17,67 @@
     align-items: center;
     margin-right: 10vw;
 }
+
+/* Modal Content */
+
+#modal_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: top;
+}
+
+#form_title {
+    margin-top: 0;
+    margin-bottom: 1vw;
+}
+
+#exit_button {
+    color: #718CA5;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+    font-size: 1.5vw;
+}
+
+#class_form {
+    display: block;
+}
+
+#class_name_input {
+    margin-top: 0.5vw;
+    width: 100%;
+    font-size: 1.4vw;
+    padding: 0.6vw 0.6vw 0.6vw 1vw;
+    box-sizing: border-box;
+    border-color: #99B0C6;
+    border-style: solid;
+    border-width: 0.1vw;
+    border-radius: 0.5vw;
+    outline: none;
+    font-family: Poppins;
+    color: #65809B;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #CCDDED;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #CCDDED;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #CCDDED;
+  }
+
+  #submit {
+      float: right;
+      margin-top: 1vw;
+      color: white;
+      font-family: Poppins;
+      font-weight: 500;
+      width: 7vw;
+  }

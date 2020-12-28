@@ -1,55 +1,45 @@
-import React from "react";
-import "./Button.css";
-import { GoogleLogin } from "react-google-login";
+import React from 'react';
+
+import { auth, db, provider } from '../firebase';
+
 import { useHistory } from "react-router-dom";
 
-import { refreshTokenSetup } from '../utils/refreshToken';
-
-const clientId= '635569088479-k8bfdrqmsmaevd76n3sdsfnqfsnc4kqh.apps.googleusercontent.com';
-
-const {OAuth2Client} = require('google-auth-library');
-
-const client = new OAuth2Client(clientId);
-
-async function verify(token) {
-    const ticket = await client.verifyIdToken({
-        idToken: token,
-        audience: clientId,
-    });
-    const payload = ticket.getPayload();
-    const userid = payload['sub'];
-}
+import "./Button.css";
 
 function Login() {
     let history = useHistory();
 
-    const onSuccess= (res) => {
-        // console.log("[Login Success] currentUser:", res.profileObj);
-        refreshTokenSetup(res);
-        var id_token= res.getAuthResponse().id_token;
-        verify(id_token).catch(console.error);
+    const login = () => auth.signInWithPopup(provider).then(function(result) {
+        var user = result.user;
+        var docRef = db.collection('users').doc(auth.currentUser.uid);
+        docRef.get().then(doc => {
+            if (doc.exists) {
+                console.log("user already exists");
+                return user
+            } else {
+                db.collection("users").doc(auth.currentUser.uid).set({
+                    name: user.displayName
+                }).then(function() {
+                    console.log("Document successfully written!");
+                }).catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            }
+        })
+        
         history.push("/classes");
-
-    };
-
-    const onFailure= (res) => {
-        console.log("[Login Failed] res:", res);
-    };
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        
+        console.error(errorCode + errorMessage + email);
+    });
 
     return (
-        <div>
-            <GoogleLogin
-                clientId={clientId}
-                render={renderProps => (
-                    <button onClick={renderProps.onClick} disabled={renderProps.disabled} id="sign_in">Sign In</button>
-                )}
-                buttonText="Sign In"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
-            />
-        </div>
+        <button onClick={login} id="sign_in">Login</button>
     );
 }
 

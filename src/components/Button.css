@@ -6,8 +6,8 @@ button {
 }
 
 #sign_in {
-    background-color: #9BBC9B;
-    border-color: #709070;
+    background-color: #36DEA3;
+    border-color: #33CB95;
     border-style: solid;
     border-width: 0.15vw;
     border-radius: 0.5vw;
@@ -27,14 +27,16 @@ button {
     font-size: 1vw;
 }
 
+#sign_out:hover {
+    background-color: #D3313E;
+}
 
 /* TODO */
 #class {
 
 }
 
-/* TODO */
-#add_class {
+.add_class {
     background-color: #36DEA3;
     border-color: #33CB95;
     border-style: solid;
@@ -43,4 +45,9 @@ button {
     width: 11vw;
     height: 2.6vw;
     font-size: 1vw;
+}
+
+.add_class:hover {
+    background-color: #33CC97;
+    cursor: pointer;
 }

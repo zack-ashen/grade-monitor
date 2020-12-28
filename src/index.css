@@ -1,6 +1,10 @@
 body {
     background-color: #F4F7FA;
-    color: #676767;
+    color: #65809B;
     margin: 0;
     font-family: Poppins; 
 }
+
+input[type=text]:focus {
+    border-color: #29A0FF;
+  }
