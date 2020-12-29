@@ -1,0 +1,37 @@
+.nav_container {
+    display: inline-block;
+    margin-top: 2vw;
+}
+
+#course_button {
+    background: none;
+    border: none;
+    border-radius: 0.5vw;
+    height: 2.6vw;
+    font-size: 1vw;
+    color: #5D3DC9;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    font-weight: bold;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+#course_button_active {
+    background: none;
+    border: none;
+    border-radius: 0.5vw;
+    height: 2.6vw;
+    font-size: 1vw;
+    background-color: #5D3DC9;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    font-weight: bold;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    cursor: initial;
+}
+
+#course_button:hover {
+    background-color: #E7EFF7;
+}

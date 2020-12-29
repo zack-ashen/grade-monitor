@@ -63,7 +63,13 @@ export default class UserClasses extends React.Component {
                             <h1>{course}</h1>
                         );
                     })} */}
-                    <CourseNav courses={this.state.classes} curClass={this.state.curClass}/>
+                    <CourseNav classes={this.state.classes} curClass={this.state.curClass}/>
+
+                    {/* Current Course Grade Pill */}
+
+                    {/* Add Course Weight Button */}
+
+                    {/* Map tables of assignments */}
                     
 
                 </div>}
