@@ -20,6 +20,7 @@ export default class UserClasses extends React.Component {
         };
 
         this.setHasClasses = this.setHasClasses.bind(this);
+        this.setCurCourse = this.setCurCourse.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +45,12 @@ export default class UserClasses extends React.Component {
         });
     }
 
+    setCurCourse (event) {
+        // console.log(event.target.value);
+        this.setState({curClass: event.target.value});
+        event.preventDefault();
+    }
+
     render() {
         // console.log("state: " + this.state.hasClasses);
         // console.log("classes: " + this.state.classes + " /// curClass: " + this.state.curClass);
@@ -63,7 +70,7 @@ export default class UserClasses extends React.Component {
                             <h1>{course}</h1>
                         );
                     })} */}
-                    <CourseNav classes={this.state.classes} curClass={this.state.curClass}/>
+                    <CourseNav classes={this.state.classes} curClass={this.state.curClass} setCurClass={this.setCurCourse}/>
 
                     {/* Current Course Grade Pill */}
 
