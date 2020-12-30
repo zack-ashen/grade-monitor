@@ -32,11 +32,11 @@ button {
 }
 
 /* TODO */
-#add_class_weight {
+.add_class_weight {
     background-color: #29A0FF;
     border: none;
     border-radius: 0.5vw;
-    width: 11vw;
+    width: 13vw;
     height: 2.6vw;
     font-size: 1vw;
     display: block;

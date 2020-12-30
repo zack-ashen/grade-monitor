@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import CourseNav from "./CourseNav";
 import GradeDisplay from "./GradeDisplay";
 import TableView from "./TableView";
+import AddClassWeight from "./AddClassWeight";
 
 import {auth, db} from "../firebase";
 
@@ -67,8 +68,17 @@ export default class UserClasses extends React.Component {
 
     }
 
-    addClassWeight() {
+    addClassWeight(newWeightGroup) {
+        let newWeightGroups = this.state.weightGroups;
+        newWeightGroups.push(newWeightGroup);
 
+        let updatedGrade = 0;
+        for (let i = 0; i < newWeightGroups.length; i++) {
+            updatedGrade += newWeightGroups[i].grade * (newWeightGroups[i].weight / 100);
+        }
+
+        this.setState({weightGroups: newWeightGroups,
+            curClassGrade: updatedGrade});
     }
 
     updateGrade (editedWeightGroup, id) {
@@ -105,13 +115,16 @@ export default class UserClasses extends React.Component {
                     </div>
                 </div>
                 }
+
                 {this.state.hasClasses && <div id="container">
                     <CourseNav classes={this.state.classes} curClass={this.state.curClassName} setCurClass={this.setCurCourse}/>
 
                     {/* Current Course Grade Pill */}
                     <GradeDisplay grade={this.state.curClassGrade} />
 
-                    <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button>
+                    <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.weightGroups}/>
+
+                    {/* <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button> */}
 
                     {/* Map tables of assignments */}
                     <div className="tableViewContainer">

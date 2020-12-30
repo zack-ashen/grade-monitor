@@ -1,18 +1,18 @@
-#assignment-input {
+.assignment-input {
     border: none;
     font-size: 0.9vw;
     width: 100%;
     text-align: center;
 }
 
-#points-earned-input {
+.points-earned-input {
     text-align: center;
     border: none;
     width: 4ch;
     font-size: 0.9vw;
 }
 
-#points-possible-input {
+.points-possible-input {
     text-align: center;
     border: none;
     width: 4ch;

@@ -53,9 +53,9 @@ export default class AssignmentRow extends React.Component {
         return (
             <>
             <tr>
-                <td className="data"><input type="text" id="assignment-input" value={this.state.assignment_name} onChange={this.updateAssignmentName} /></td>
-                <td className="data"><input type="text" id="points-earned-input" value={this.state.points_earned} onChange={this.updatePointsEarned} /></td>
-                <td className="data"><input type="text" id="points-possible-input" value={this.state.points_possible} onChange={this.updatePointsPossible} /></td>
+                <td className="data"><input type="text" className="assignment-input" value={this.state.assignment_name} onChange={this.updateAssignmentName} /></td>
+                <td className="data"><input type="text" className="points-earned-input" value={this.state.points_earned} onChange={this.updatePointsEarned} /></td>
+                <td className="data"><input type="text" className="points-possible-input" value={this.state.points_possible} onChange={this.updatePointsPossible} /></td>
                 <td className="data">{this.state.grade}%</td>
             </tr>
             </>

@@ -1,8 +1,8 @@
 import React from "react";
 import AssignmentRow from "./AssignmentRow";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import "./TableView.css";
 
@@ -23,20 +23,48 @@ export default class TableView extends React.Component {
         this.setWeight = this.setWeight.bind(this);
         this.setNewPointsEarned = this.setNewPointsEarned.bind(this);
         this.setNewPointsPossible = this.setNewPointsPossible.bind(this);
+        this.setNewAssignment = this.setNewAssignment.bind(this);
         this.updateGrade = this.updateGrade.bind(this);
+        this.addNewAssignment = this.addNewAssignment.bind(this);
+    }
+
+    isNumber(event) {
+        if (event.target.value.match(/^[0-9]+$/) != null || event.target.value === '') {
+            return true;
+        }
     }
 
     setWeight (event) {
         // TODO: handle if value is not a number or is greater than 100 or less than 0
-        this.setState({weight: event.target.value});
+
+        if (this.isNumber(event) && event.target.value.length < 4) {
+            this.setState({weight: event.target.value});
+        }
+        
+        const newWeightGroup = {
+            name: this.props.weightGroup.name,
+            grade: this.state.grade,
+            assignments: this.state.assignments,
+            weight: event.target.value
+        }
+
+        this.props.updateTotalGrade(newWeightGroup, this.state.id);
     }
 
     setNewPointsEarned(event) {
-        this.setState({new_points_earned: event.target.value});
+        if (this.isNumber(event)) {
+            this.setState({new_points_earned: event.target.value});
+        }
     }
 
     setNewPointsPossible(event) {
-        this.setState({new_points_possible: event.target.value});
+        if (this.isNumber(event)) {
+            this.setState({new_points_possible: event.target.value});
+        }
+    }
+
+    setNewAssignment (event) {
+        this.setState({new_assignment: event.target.value});
     }
 
     /** 
@@ -53,16 +81,16 @@ export default class TableView extends React.Component {
 
         let totalPointsEarned = 0;
         let totalPointsPossible = 0;
-        for (var i = 0; i < assignments.length; i++) {
+        for (let i = 0; i < assignments.length; i++) {
             totalPointsEarned += assignments[i].points_earned;
             totalPointsPossible += assignments[i].points_possible;
         }
 
-        var newGrade = (totalPointsEarned / totalPointsPossible) * 100;
+        let newGrade = (totalPointsEarned / totalPointsPossible) * 100;
         this.setState({assignments: assignments,
                        grade: newGrade});
 
-        var newWeightGroup = {
+        const newWeightGroup = {
             name: this.props.weightGroup.name,
             grade: newGrade,
             weight: this.state.weight,
@@ -70,6 +98,42 @@ export default class TableView extends React.Component {
         }
 
         this.props.updateTotalGrade(newWeightGroup, this.state.id);
+    }
+
+    addNewAssignment() {
+        if (this.state.assignment_name !== '' && this.state.new_points_earned !== '' && this.state.new_points_possible !== '') {
+            let newAssignments = this.state.assignments;
+            let newAssignment = {
+                name: this.state.new_assignment,
+                points_earned: this.state.new_points_earned,
+                points_possible: this.state.new_points_possible
+            }
+            newAssignments.push(newAssignment);
+
+            let totalPointsEarned = 0;
+            let totalPointsPossible = 0;
+            for (let i = 0; i < newAssignments.length; i++) {
+                totalPointsEarned += newAssignments[i].points_earned;
+                totalPointsPossible += newAssignments[i].points_possible;
+            }
+
+            let newGrade = (totalPointsEarned / totalPointsPossible) * 100;
+            this.setState({assignments: newAssignments,
+                           grade: newGrade,
+                           new_assignment: '',
+                           new_points_earned: '',
+                           new_points_possible: ''});
+            
+            const newWeightGroup = {
+                name: this.props.weightGroup.name,
+                grade: newGrade,
+                weight: this.state.weight,
+                assignments: newAssignments
+            }
+
+            this.props.updateTotalGrade(newWeightGroup, this.state.id);
+            
+        }
     }
 
     setGradeColor () {
@@ -98,10 +162,10 @@ export default class TableView extends React.Component {
                         return <AssignmentRow assignment={assignment} key={key} updateWeightGrade={thisComponent.updateGrade} id={assignments.indexOf(assignment)}/>;
                     })}
                     <tr>
-                        <td className="data"><input type="text" id="new-assignment-input" value={this.state.new_assignment} onChange={e => {this.setState({new_assignment: e.target.value})}}/></td>
+                        <td className="data"><input type="text" id="new-assignment-input" value={this.state.new_assignment} onChange={this.setNewAssignment}/></td>
                         <td className="data"><input type="text" id="new-points-earned-input" value={this.state.new_points_earned} onChange={this.setNewPointsEarned}/></td>
                         <td className="data"><input type="text" id="new-points-possible-input" value={this.state.new_points_possible} onChange={this.setNewPointsPossible}/></td>
-                        <td className="data">{this.state.new_grade}</td>
+                        <td className="data"><button id="add-new-assignment" onClick={this.addNewAssignment} ><FontAwesomeIcon icon={faCheckCircle} /></button></td>
                     </tr>
                 </table>
                 <div id="table-bottom">

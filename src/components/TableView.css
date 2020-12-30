@@ -48,6 +48,13 @@ th {
     text-align: center;
 }
 
+#add-new-assignment {
+    background: none;
+    border: none;
+    color: #36DEA3;
+    font-size: 1.1vw;
+}
+
 #table-bottom {
     display: flex;
     flex-direction: row;
