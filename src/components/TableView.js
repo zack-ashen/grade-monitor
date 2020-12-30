@@ -10,6 +10,7 @@ export default class TableView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: this.props.id,
             weight: this.props.weightGroup.weight,
             assignments: this.props.weightGroup.assignments,
             grade: this.props.weightGroup.grade,
@@ -56,10 +57,19 @@ export default class TableView extends React.Component {
             totalPointsEarned += assignments[i].points_earned;
             totalPointsPossible += assignments[i].points_possible;
         }
-        
-        this.setState({assignments: assignments,
-                       grade: (totalPointsEarned / totalPointsPossible) * 100});
 
+        var newGrade = (totalPointsEarned / totalPointsPossible) * 100;
+        this.setState({assignments: assignments,
+                       grade: newGrade});
+
+        var newWeightGroup = {
+            name: this.props.weightGroup.name,
+            grade: newGrade,
+            weight: this.state.weight,
+            assignments: assignments
+        }
+
+        this.props.updateTotalGrade(newWeightGroup, this.state.id);
     }
 
     setGradeColor () {

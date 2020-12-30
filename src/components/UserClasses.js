@@ -20,19 +20,22 @@ export default class UserClasses extends React.Component {
             addClassModal: false,
             classes: [],
             curClassName: '',
-            curClass: {},
+            curClassGrade: 0,
             weightGroups: []
         };
 
         this.setHasClasses = this.setHasClasses.bind(this);
         this.setCurCourse = this.setCurCourse.bind(this);
+        this.updateGrade = this.updateGrade.bind(this);
     }
 
     componentDidMount() {
-        console.log("type: " + (typeof this.state.curClass));
         this.setHasClasses();
     }
 
+    /**
+     * Save data. App saves data here and when user switches to a different course.
+     */
     componentWillUnmount () {
 
     }
@@ -53,7 +56,8 @@ export default class UserClasses extends React.Component {
 
                 let currentComponent = this;
                 userdb.collection('classes').doc(classId).get().then(function(doc) {
-                    currentComponent.setState({curClass: doc.data()});
+                    var curClass = doc.data();
+                    currentComponent.setState({curClassGrade: curClass.grade});
                     currentComponent.setState({weightGroups: doc.data().weight_groups});
                 });
             } else {
@@ -67,6 +71,21 @@ export default class UserClasses extends React.Component {
 
     }
 
+    updateGrade (editedWeightGroup, id) {
+        let weightGroups = this.state.weightGroups;
+        weightGroups[id] = editedWeightGroup;
+
+        var updatedGrade = 0;
+        // compute weighted average
+        for (var i = 0; i < weightGroups.length; i++) {
+            updatedGrade += weightGroups[i].grade * (weightGroups[i].weight / 100);
+        }
+
+        this.setState({weightGroups: weightGroups,
+                       curClassGrade: updatedGrade});
+
+    }
+
     setCurCourse (event) {
         // console.log(event.target.value);
         this.setState({curClassName: event.target.value});
@@ -74,10 +93,8 @@ export default class UserClasses extends React.Component {
     }
 
     render() {
-        // console.log("state: " + this.state.hasClasses);
-        // console.log("classes: " + this.state.classes + " /// curClass: " + this.state.curClass);
-        // console.log("Current Class: " + JSON.stringify(this.state.curClass));
-        // console.log("Current Class: " + this.state.weightGroups.length);
+        const weightGroups = this.state.weightGroups;
+        const thisComponent = this;
         return (
             <div className="UserClasses">
                 <Nav setHasClasses={this.setHasClasses} showAddClassModal={this.showAddClassModal}/>
@@ -92,14 +109,14 @@ export default class UserClasses extends React.Component {
                     <CourseNav classes={this.state.classes} curClass={this.state.curClassName} setCurClass={this.setCurCourse}/>
 
                     {/* Current Course Grade Pill */}
-                    <GradeDisplay grade={this.state.curClass.grade} />
+                    <GradeDisplay grade={this.state.curClassGrade} />
 
                     <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button>
 
                     {/* Map tables of assignments */}
                     <div className="tableViewContainer">
                         {this.state.weightGroups.map(function(weightGroup, key) {
-                            return <TableView weightGroup={weightGroup} key={key} />;
+                            return <TableView weightGroup={weightGroup} key={key} id={weightGroups.indexOf(weightGroup)} updateTotalGrade={thisComponent.updateGrade}/>;
                         })}
                     </div>
 

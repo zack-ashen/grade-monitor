@@ -45,6 +45,7 @@ export default class AssignmentRow extends React.Component {
         var stateAlias = this.state;
         stateAlias.points_possible = updatedPointsPossible;
         stateAlias.grade = updatedGrade;
+        
         this.props.updateWeightGrade(stateAlias);
     }
 
