@@ -36,22 +36,21 @@ export default class Nav extends React.Component {
         userdb.collection("classes").doc(this.state.newClassValue).set({
             name: this.state.newClassValue,
             grade: 100,
-            weight_groups: {
-                homework: {
+            weight_groups: [
+                {   
                     name: "Homework",
                     grade: 100,
                     weight: 100,
-                    assignments: {
-                        example_assignment: {
-                            name: "Example Assignment",
-                            points_earned: 20,
-                            points_possible: 20
-                        }
-                    }
-                }
-            }
+                    assignments: [
+                        { name: "Example Assignment",
+                          points_earned: 20,
+                          points_possible: 20 },
+                    ]
+                },
+            ]
         });
 
+        this.setState({newClassValue: ''});
         this.props.setHasClasses();
         event.preventDefault();
     }
@@ -59,7 +58,7 @@ export default class Nav extends React.Component {
     render(){
         return (
             <div className="Nav">
-                <h1 id="nav_header">Grade Teller</h1>
+                <h1 id="nav_header">Grade Book</h1>
                 <div id="button-container">
                     <ModalContainer triggerText={'Add Class'} onSubmit={this.handleSubmit} buttonStyle={"add_class"} ref={this.modalContainer}>
                         <div id="modal_header">

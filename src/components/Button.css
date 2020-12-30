@@ -32,8 +32,16 @@ button {
 }
 
 /* TODO */
-#class {
-
+#add_class_weight {
+    background-color: #29A0FF;
+    border: none;
+    border-radius: 0.5vw;
+    width: 11vw;
+    height: 2.6vw;
+    font-size: 1vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .add_class {
