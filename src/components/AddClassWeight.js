@@ -22,6 +22,8 @@ export default class AddClassWeight extends React.Component {
     }
 
     handleSubmit (event) {
+        this.modalContainer.current.closeModal();
+
         const weightGroups = this.props.weightGroups;
 
         let alreadyContains = false;
@@ -32,6 +34,7 @@ export default class AddClassWeight extends React.Component {
         if (!alreadyContains) {
             const newWeightGroup = {
                 name: this.state.newWeightGroupValue,
+                id: weightGroups.length,
                 grade: 100,
                 weight: 0,
                 assignments: [
@@ -41,10 +44,10 @@ export default class AddClassWeight extends React.Component {
                 ]
             };
 
-            this.props.addClassWeight(newWeightGroup);
+            this.setState({newWeightGroupValue: ''});
+            this.props.addWeight(newWeightGroup);
         }
 
-        this.setState({newWeightGroupValue: ''});
         event.preventDefault();
 
     }

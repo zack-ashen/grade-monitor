@@ -18,35 +18,62 @@ export default class AssignmentRow extends React.Component {
         this.updatePointsPossible = this.updatePointsPossible.bind(this);
     }
 
+    componentDidUpdate (prevProps, prevState) {
+        if (prevProps.assignment !== this.props.assignment) {
+            this.setState({assignment_name: this.props.assignment.name,
+                           points_earned: this.props.assignment.points_earned,
+                           points_possible: this.props.assignment.points_possible,
+                           grade: Math.round((this.props.assignment.points_earned / this.props.assignment.points_possible) * 100)});
+        }
+    }
+
     updateAssignmentName (event) {
-        this.setState({assignment_name: event.target.value});
+        const newAssignmentName = event.target.value;
+
+        this.setState({assignment_name: newAssignmentName});
+
+        const updatedAssignment = {
+            id: this.state.id,
+            name: newAssignmentName,
+            points_possible: this.state.points_possible,
+            points_earned: this.state.points_earned
+        };
+
+        this.props.updateWeightGrade(updatedAssignment);
     }
 
     updatePointsEarned (event) {
-        var updatedPointsEarned = event.target.value;
-        var updatedGrade = (event.target.value / this.state.points_possible) * 100;
+        const updatedPointsEarned = parseInt(event.target.value);
+        const updatedGrade = Math.round((event.target.value / this.state.points_possible) * 100);
 
         this.setState({points_earned: updatedPointsEarned,
                         grade: updatedGrade});
         
-        var stateAlias = this.state;
-        stateAlias.points_earned = updatedPointsEarned;
-        stateAlias.grade = updatedGrade;
-        this.props.updateWeightGrade(stateAlias);
+        const updatedAssignment = {
+            id: this.state.id,
+            name: this.state.assignment_name,
+            points_possible: this.state.points_possible,
+            points_earned: updatedPointsEarned
+        };
+
+        this.props.updateWeightGrade(updatedAssignment);
     }
 
     updatePointsPossible (event) {
-        var updatedPointsPossible = event.target.value;
-        var updatedGrade = (this.state.points_earned / event.target.value) * 100;
+        const updatedPointsPossible = parseInt(event.target.value);
+        const updatedGrade = (this.state.points_earned / updatedPointsPossible) * 100;
 
         this.setState({points_possible: updatedPointsPossible,
                         grade: updatedGrade});
 
-        var stateAlias = this.state;
-        stateAlias.points_possible = updatedPointsPossible;
-        stateAlias.grade = updatedGrade;
+        const updatedAssignment = {
+            id: this.state.id,
+            name: this.state.assignment_name,
+            points_possible: updatedPointsPossible,
+            points_earned: this.state.points_earned
+        };
         
-        this.props.updateWeightGrade(stateAlias);
+        this.props.updateWeightGrade(updatedAssignment);
     }
 
     render () {

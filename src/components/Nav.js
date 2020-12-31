@@ -22,9 +22,6 @@ export default class Nav extends React.Component {
         this.modalContainer = React.createRef();
     }
 
-    addClass = () => {
-    }
-
     handleChange(event) {
         this.setState({newClassValue: event.target.value});
     }
@@ -38,6 +35,7 @@ export default class Nav extends React.Component {
             grade: 100,
             weight_groups: [
                 {   
+                    id: 0,
                     name: "Homework",
                     grade: 100,
                     weight: 100,
@@ -51,7 +49,7 @@ export default class Nav extends React.Component {
         });
 
         this.setState({newClassValue: ''});
-        this.props.setHasClasses();
+        this.props.addClass(this.state.newClassValue);
         event.preventDefault();
     }
 

@@ -28,6 +28,14 @@ export default class TableView extends React.Component {
         this.addNewAssignment = this.addNewAssignment.bind(this);
     }
 
+    componentDidUpdate (prevProps, prevState) {
+        if (this.props.weightGroup !== prevProps.weightGroup) {
+            this.setState({weight: this.props.weightGroup.weight,
+                           assignments: this.props.weightGroup.assignments,
+                           grade: this.props.weightGroup.grade});
+        }
+    }
+
     isNumber(event) {
         if (event.target.value.match(/^[0-9]+$/) != null || event.target.value === '') {
             return true;
@@ -74,17 +82,21 @@ export default class TableView extends React.Component {
     updateGrade(edited_assignment) {
         let assignments = this.state.assignments;
         assignments[edited_assignment.id] = {
-            name: edited_assignment.assignment_name,
+            name: edited_assignment.name,
             points_earned: edited_assignment.points_earned,
             points_possible: edited_assignment.points_possible
         }
 
+        console.log(assignments);
+
         let totalPointsEarned = 0;
         let totalPointsPossible = 0;
         for (let i = 0; i < assignments.length; i++) {
-            totalPointsEarned += assignments[i].points_earned;
-            totalPointsPossible += assignments[i].points_possible;
+            totalPointsEarned = totalPointsEarned + assignments[i].points_earned;
+            totalPointsPossible = totalPointsPossible + assignments[i].points_possible;
         }
+
+        console.log(totalPointsEarned + "/" + totalPointsPossible);
 
         let newGrade = (totalPointsEarned / totalPointsPossible) * 100;
         this.setState({assignments: assignments,
@@ -101,12 +113,12 @@ export default class TableView extends React.Component {
     }
 
     addNewAssignment() {
-        if (this.state.assignment_name !== '' && this.state.new_points_earned !== '' && this.state.new_points_possible !== '') {
+        if (this.state.new_assignment !== '' && this.state.new_points_earned !== '' && this.state.new_points_possible !== '') {
             let newAssignments = this.state.assignments;
             let newAssignment = {
                 name: this.state.new_assignment,
-                points_earned: this.state.new_points_earned,
-                points_possible: this.state.new_points_possible
+                points_earned: parseInt(this.state.new_points_earned),
+                points_possible: parseInt(this.state.new_points_possible)
             }
             newAssignments.push(newAssignment);
 
