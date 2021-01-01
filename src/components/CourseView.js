@@ -26,6 +26,8 @@ export default class UserClasses extends React.Component {
         let newWeightGroups = this.state.course.weight_groups;
         newWeightGroups.push(newWeightGroup);
 
+        console.log("New Weight Groups: " + JSON.stringify(newWeightGroups));
+
         let course = this.state.course;
         course.weight_groups = newWeightGroups;
 
@@ -35,11 +37,17 @@ export default class UserClasses extends React.Component {
     updateGrade (editedWeightGroup, id) {
         let weightGroups = this.state.course.weight_groups;
         weightGroups[id] = editedWeightGroup;
+        console.log("PassedID: " + id);
+        console.log(JSON.stringify(weightGroups[0]));
 
         var updatedGrade = 0;
         // compute weighted average
         for (var i = 0; i < weightGroups.length; i++) {
-            updatedGrade += weightGroups[i].grade * (weightGroups[i].weight / 100);
+            let weight = 0;
+            if (weightGroups[i].weight !== '')
+                weight = parseInt(weightGroups[i].weight);
+
+            updatedGrade += weightGroups[i].grade * (weight / 100);
         }
 
         let course = this.state.course;
@@ -55,7 +63,7 @@ export default class UserClasses extends React.Component {
         return (
             <div id="container">
                 {/* Current Course Grade Pill */}
-                <h2 className="GradeDisplay">{this.state.course.grade}%</h2>
+                <h2 className="GradeDisplay">{Math.round(this.state.course.grade)}%</h2>
 
                 <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups}/>
 
@@ -65,7 +73,7 @@ export default class UserClasses extends React.Component {
                 {this.state.course.weight_groups &&
                     <div className="tableViewContainer">
                         {this.state.course.weight_groups.map(weightGroup => {
-                            return <TableView weightGroup={weightGroup} id={weightGroup.id} key={weightGroup.name} updateTotalGrade={thisComponent.updateGrade}/>;
+                            return <TableView className="table-view" weightGroup={weightGroup} wid={weightGroup.id} key={weightGroup.id} updateTotalGrade={thisComponent.updateGrade}/>;
                         })}
                     </div>
                 }

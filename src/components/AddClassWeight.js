@@ -44,6 +44,8 @@ export default class AddClassWeight extends React.Component {
                 ]
             };
 
+            console.log("New Weight Group: " + newWeightGroup.id);
+
             this.setState({newWeightGroupValue: ''});
             this.props.addWeight(newWeightGroup);
         }

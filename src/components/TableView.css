@@ -1,10 +1,13 @@
 .TableView {
     background-color: white;
     border-radius: 1vw;
-    border-style: solid;
-    border-width: 0.1vw;
-    border-color: #2680EB;
+    box-shadow: 0.26vw 0.26vw #CCCFD1;
     padding: 0vw 1.8vw 0.8vw 1.8vw;
+    width: 40%;
+}
+
+.weightTable {
+    width: 100%;
 }
 
 #table-top {
@@ -25,6 +28,14 @@
     border: none;
     cursor: pointer;
     color: #718CA5;
+    transition: all 0.2s ease 0s;
+}
+
+#delete_button:hover {
+    background-color: #DE3643;
+    color: white;
+    border-radius: 1000vw;
+    
 }
 
 table {
@@ -53,6 +64,15 @@ th {
     border: none;
     color: #36DEA3;
     font-size: 1.1vw;
+    transition: all 0.2s ease 0s;
+}
+
+.add-new-assignment-text {
+    transition: all 0.2s ease 0s;
+}
+
+.add-new-assignment-text:hover {
+    color:#2fe9a8;
 }
 
 #table-bottom {
@@ -82,10 +102,21 @@ input {
     color: #718CA5;
 }
 
-#weight-input {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.weight-input {
     width: 3ch;
     font-size: 1.2vw;
-    padding: 0.4vw 0.4vw 0.4vw 0.6vw;
+    padding: 0.1vw 0.2vw 0.1vw 0.6vw;
 }
 
 #weight-grade {

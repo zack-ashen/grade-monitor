@@ -23,7 +23,7 @@ export default class AssignmentRow extends React.Component {
             this.setState({assignment_name: this.props.assignment.name,
                            points_earned: this.props.assignment.points_earned,
                            points_possible: this.props.assignment.points_possible,
-                           grade: Math.round((this.props.assignment.points_earned / this.props.assignment.points_possible) * 100)});
+                           grade: (this.props.assignment.points_earned / this.props.assignment.points_possible) * 100});
         }
     }
 
@@ -43,8 +43,8 @@ export default class AssignmentRow extends React.Component {
     }
 
     updatePointsEarned (event) {
-        const updatedPointsEarned = parseInt(event.target.value);
-        const updatedGrade = Math.round((event.target.value / this.state.points_possible) * 100);
+        const updatedPointsEarned = parseInt(event.target.value) || 0;
+        const updatedGrade = event.target.value / this.state.points_possible * 100;
 
         this.setState({points_earned: updatedPointsEarned,
                         grade: updatedGrade});
@@ -60,7 +60,7 @@ export default class AssignmentRow extends React.Component {
     }
 
     updatePointsPossible (event) {
-        const updatedPointsPossible = parseInt(event.target.value);
+        const updatedPointsPossible = parseInt(event.target.value) || 0;
         const updatedGrade = (this.state.points_earned / updatedPointsPossible) * 100;
 
         this.setState({points_possible: updatedPointsPossible,
@@ -83,7 +83,7 @@ export default class AssignmentRow extends React.Component {
                 <td className="data"><input type="text" className="assignment-input" value={this.state.assignment_name} onChange={this.updateAssignmentName} /></td>
                 <td className="data"><input type="text" className="points-earned-input" value={this.state.points_earned} onChange={this.updatePointsEarned} /></td>
                 <td className="data"><input type="text" className="points-possible-input" value={this.state.points_possible} onChange={this.updatePointsPossible} /></td>
-                <td className="data">{this.state.grade}%</td>
+                <td className="data">{Math.round(this.state.grade)}%</td>
             </tr>
             </>
         )

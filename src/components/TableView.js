@@ -10,7 +10,7 @@ export default class TableView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
+            id: this.props.weightGroup.id,
             weight: this.props.weightGroup.weight,
             assignments: this.props.weightGroup.assignments,
             grade: this.props.weightGroup.grade,
@@ -30,7 +30,8 @@ export default class TableView extends React.Component {
 
     componentDidUpdate (prevProps, prevState) {
         if (this.props.weightGroup !== prevProps.weightGroup) {
-            this.setState({weight: this.props.weightGroup.weight,
+            this.setState({id: this.props.weightGroup.id,
+                           weight: this.props.weightGroup.weight,
                            assignments: this.props.weightGroup.assignments,
                            grade: this.props.weightGroup.grade});
         }
@@ -43,20 +44,22 @@ export default class TableView extends React.Component {
     }
 
     setWeight (event) {
-        // TODO: handle if value is not a number or is greater than 100 or less than 0
+        if (event.target.value.length < 4) {
+            const newWeight = event.target.value;
+            this.setState({weight: newWeight});
 
-        if (this.isNumber(event) && event.target.value.length < 4) {
-            this.setState({weight: event.target.value});
-        }
-        
-        const newWeightGroup = {
-            name: this.props.weightGroup.name,
-            grade: this.state.grade,
-            assignments: this.state.assignments,
-            weight: event.target.value
-        }
+            console.log("id: " + this.state.id);
 
-        this.props.updateTotalGrade(newWeightGroup, this.state.id);
+            const newWeightGroup = {
+                id: this.state.id,
+                name: this.props.weightGroup.name,
+                grade: this.state.grade,
+                assignments: this.state.assignments,
+                weight: newWeight
+            }
+
+            this.props.updateTotalGrade(newWeightGroup, this.state.id);
+        }
     }
 
     setNewPointsEarned(event) {
@@ -103,6 +106,7 @@ export default class TableView extends React.Component {
                        grade: newGrade});
 
         const newWeightGroup = {
+            id: this.state.id,
             name: this.props.weightGroup.name,
             grade: newGrade,
             weight: this.state.weight,
@@ -137,6 +141,7 @@ export default class TableView extends React.Component {
                            new_points_possible: ''});
             
             const newWeightGroup = {
+                id: this.state.id,
                 name: this.props.weightGroup.name,
                 grade: newGrade,
                 weight: this.state.weight,
@@ -163,7 +168,7 @@ export default class TableView extends React.Component {
                         <FontAwesomeIcon icon={faTimes} />
                     </button>
                 </div>
-                <table>
+                <table className="weightTable">
                     <tr id="header-row">
                         <th id="assignment-header">Assignment Name</th>
                         <th>Points Earned</th>
@@ -177,15 +182,15 @@ export default class TableView extends React.Component {
                         <td className="data"><input type="text" id="new-assignment-input" value={this.state.new_assignment} onChange={this.setNewAssignment}/></td>
                         <td className="data"><input type="text" id="new-points-earned-input" value={this.state.new_points_earned} onChange={this.setNewPointsEarned}/></td>
                         <td className="data"><input type="text" id="new-points-possible-input" value={this.state.new_points_possible} onChange={this.setNewPointsPossible}/></td>
-                        <td className="data"><button id="add-new-assignment" onClick={this.addNewAssignment} ><FontAwesomeIcon icon={faCheckCircle} /></button></td>
+                        <td className="data"><button id="add-new-assignment" onClick={this.addNewAssignment} ><FontAwesomeIcon icon={faCheckCircle} className="add-new-assignment-text" /></button></td>
                     </tr>
                 </table>
                 <div id="table-bottom">
                     <div id="weight-input-container">
                         <h3 id="table-footer">Weight</h3>
-                        <input type="text" id="weight-input" value={this.state.weight} onChange={this.setWeight}/>
+                        <input type="number" className="weight-input" maxLength="3" value={this.state.weight} onChange={this.setWeight}/>
                     </div>
-                    <h3 id="weight-grade">{this.state.grade}%</h3>
+                    <h3 id="weight-grade">{Math.round(this.state.grade)}%</h3>
                 </div>
             </div>
         );

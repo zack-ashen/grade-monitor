@@ -72,6 +72,7 @@ export default class UserClasses extends React.Component {
      */
     componentWillUnmount () {
         this._isMounted = false;
+        this.saveData();
     }
 
     saveData() {

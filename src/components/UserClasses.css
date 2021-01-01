@@ -5,14 +5,29 @@
 
 .tableViewContainer {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
     align-items: center;
     text-align: center;
+    flex-wrap: wrap;
+    margin: auto;
     margin-top: 3vw;
 }
 
-.GradeDisplay {
+.tableViewContainerul {
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    display: inline-block;
+}
+
+
+.table-view {
+    display: inline;
+}
+
+/* .GradeDisplay {
     background-color: #36DEA3;
     margin-top: 3vw;
     border-radius: 4vw;
@@ -21,4 +36,14 @@
     display: inline-block;
     font-size: 2.5vw;
     font-weight: 500;
+} */
+
+.GradeDisplay {
+    margin-top: 1vw;
+    line-height: 2.8vw;
+    color: #36DEA3;
+    display: inline-block;
+    font-size: 2.5vw;
+    font-weight: 700;
+    border-bottom: solid 0.45vw #36DEA3;
 }

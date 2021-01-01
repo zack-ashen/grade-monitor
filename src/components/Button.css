@@ -3,13 +3,12 @@ button {
     cursor: pointer;
     outline: none;
     color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
 }
 
 #sign_in {
     background-color: #36DEA3;
-    border-color: #33CB95;
-    border-style: solid;
-    border-width: 0.15vw;
+    border: none;
     border-radius: 0.5vw;
     width: 11vw;
     height: 2.6vw;
@@ -18,9 +17,8 @@ button {
 
 #sign_out {
     background-color: #DE3643;
-    border-color: #CB2835;
-    border-style: solid;
-    border-width: 0.15vw;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border: none;
     border-radius: 0.5vw;
     width: 11vw;
     height: 2.6vw;
@@ -28,7 +26,7 @@ button {
 }
 
 #sign_out:hover {
-    background-color: #D3313E;
+    transform: translateY(-2px);
 }
 
 /* TODO */
@@ -46,9 +44,8 @@ button {
 
 .add_class {
     background-color: #36DEA3;
-    border-color: #33CB95;
-    border-style: solid;
-    border-width: 0.15vw;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border: none;
     border-radius: 0.5vw;
     width: 11vw;
     height: 2.6vw;
@@ -56,6 +53,6 @@ button {
 }
 
 .add_class:hover {
-    background-color: #33CC97;
     cursor: pointer;
+    transform: translateY(-2px);
 }
