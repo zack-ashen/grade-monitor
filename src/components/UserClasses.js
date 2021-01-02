@@ -23,19 +23,21 @@ export default class UserClasses extends React.Component {
             classes: [],
             curClassName: '',
             curClassGrade: 100,
-            weightGroups: [],
-            course: {}
+            course: {},
+            cachedCourse: {},
+            writes: 0
         };
 
         this.addClass = this.addClass.bind(this);
         this.setCurCourse = this.setCurCourse.bind(this);
         this.updateGrade = this.updateGrade.bind(this);
+        this.deleteWeightGroup = this.deleteWeightGroup.bind(this);
+        this.saveData = this.saveData.bind(this);
     }
 
     componentDidMount() {
         this._isMounted = true;
 
-        // this.setHasClasses();
         this.authSubscription = auth.onAuthStateChanged((user) => {
             if (user && this._isMounted) {
                 this.setState({uid: user.uid});
@@ -48,16 +50,16 @@ export default class UserClasses extends React.Component {
                         snap.forEach(function(doc) {
                             curClasses.push(doc.id);
                         });
-                        this.setState({classes: curClasses});
-                        this.setState({curClassName: curClasses[0]});
+                        this.setState({classes: curClasses,
+                                       curClassName: curClasses[0]});
                         var classId = curClasses[0];
 
                         let currentComponent = this;
                         userdb.collection('classes').doc(classId).get().then(function(doc) {
                             var curClass = doc.data();
-                            currentComponent.setState({course: doc.data()});
-                            currentComponent.setState({curClassGrade: curClass.grade});
-                            currentComponent.setState({weightGroups: doc.data().weight_groups});
+                            currentComponent.setState({course: doc.data(),
+                                                       cachedCourse: doc.data(),
+                                                       curClassGrade: curClass.grade});
                         });
                     } else {
                         this.setState({hasClasses: false});
@@ -72,11 +74,13 @@ export default class UserClasses extends React.Component {
      */
     componentWillUnmount () {
         this._isMounted = false;
-        this.saveData();
     }
 
     saveData() {
-        db.collection('users').doc(this.state.uid).collection("classes").doc(this.state.course.name).set(this.state.course);
+        if (this.state.course !== this.state.cachedCourse && this.state.writes < 5000)
+            this.setState({cachedCourse: this.state.course,
+                           writes: this.state.writes + 1});
+            db.collection('users').doc(this.state.uid).collection("classes").doc(this.state.course.name).set(this.state.course);
     }
 
     addClass (newClassName) {
@@ -109,34 +113,7 @@ export default class UserClasses extends React.Component {
         );
     }
 
-    setHasClasses() {
-        userdb = db.collection('users').doc(this.props.uid);
-
-        userdb.collection('classes').get().then(snap => {
-            if (snap.size > 0) {
-                this.setState({hasClasses: true});
-                var curClasses = [];
-                snap.forEach(function(doc) {
-                    curClasses.push(doc.id);
-                });
-                this.setState({classes: curClasses});
-                this.setState({curClassName: curClasses[0]});
-                var classId = curClasses[0];
-
-                let currentComponent = this;
-                userdb.collection('classes').doc(classId).get().then(function(doc) {
-                    var curClass = doc.data();
-                    currentComponent.setState({curClassGrade: curClass.grade});
-                    currentComponent.setState({weightGroups: doc.data().weight_groups});
-                });
-            } else {
-                this.setState({hasClasses: false});
-            }
-        });
-    }
-
     addClassWeight(newWeightGroup) {
-
         let newWeightGroups = this.state.course.weight_groups;
         newWeightGroups.push(newWeightGroup);
 
@@ -180,6 +157,17 @@ export default class UserClasses extends React.Component {
                              course: newCourseData});
     }
 
+    deleteWeightGroup (weightGroupId) {
+        let updatedWeightGroups = this.state.course.weight_groups;
+        updatedWeightGroups.splice(updatedWeightGroups[weightGroupId], 1);
+
+        let updatedCourse = this.state.course;
+        updatedCourse.weight_groups = updatedWeightGroups;
+
+        this.setState({course: updatedCourse});
+        this.saveData();
+    }
+
     render() {
         return (
             <div className="UserClasses">
@@ -195,23 +183,7 @@ export default class UserClasses extends React.Component {
                 {this.state.hasClasses && <div id="container">
                     <CourseNav classes={this.state.classes} curClass={this.state.curClassName} setCurClass={this.setCurCourse}/>
 
-                    <CourseView course={this.state.course} key={this.state.course}/>
-
-                    {/* Current Course Grade Pill */} {/*
-                    <GradeDisplay grade={this.state.course.grade} />
-
-                    <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.weightGroups}/>
-
-                    {/* <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button> */}
-
-                    {/* Map tables of assignments */} {/*
-                    {this.state.course.weight_groups &&
-                        <div className="tableViewContainer">
-                            {this.state.course.weight_groups.map(weightGroup => {
-                                return <TableView weightGroup={weightGroup} id={weightGroup.id} updateTotalGrade={thisComponent.updateGrade}/>;
-                            })}
-                        </div>
-                    }*/}
+                    <CourseView course={this.state.course} key={this.state.course} saveData={this.saveData} deleteWeightGroup={this.state.deleteWeightGroup}/>
 
                 </div>}
             </div>

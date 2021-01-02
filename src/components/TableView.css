@@ -4,10 +4,12 @@
     box-shadow: 0.26vw 0.26vw #CCCFD1;
     padding: 0vw 1.8vw 0.8vw 1.8vw;
     width: 40%;
+    transition: all 0.2s ease-in-out;
 }
 
 .weightTable {
     width: 100%;
+    table-layout: fixed;
 }
 
 #table-top {
@@ -47,6 +49,13 @@ th {
     font-weight: 100;
 }
 
+tr {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 #header-row {
     border: none;
 }
@@ -59,7 +68,7 @@ th {
     text-align: center;
 }
 
-#add-new-assignment {
+.add-new-assignment {
     background: none;
     border: none;
     color: #36DEA3;

@@ -2,6 +2,8 @@ import React from "react";
 import TableView from "./TableView";
 import AddClassWeight from "./AddClassWeight";
 
+import gradeColor from "../utils/gradeColor";
+
 import "./UserClasses.css";
 import "./Button.css";
 
@@ -9,24 +11,34 @@ export default class UserClasses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: this.props.course
+            course: this.props.course,
+            backgroundColor: ''
         }
+
 
         this.updateGrade = this.updateGrade.bind(this);
         this.addClassWeight = this.addClassWeight.bind(this);
+        this.setGradeColor = this.setGradeColor.bind(this);
+    }
+
+    setGradeColor () {
+        this.setState({backgroundColor: gradeColor(this.state.course.grade)});
+    }
+
+    componentDidMount () {
+        this.setGradeColor();
     }
 
     componentDidUpdate (prevProps, prevState) {
         if (this.props.course !== prevProps.course) {
             this.setState({course: this.props.course});
+            this.setGradeColor();
         }
     }
 
     addClassWeight(newWeightGroup) {
         let newWeightGroups = this.state.course.weight_groups;
         newWeightGroups.push(newWeightGroup);
-
-        console.log("New Weight Groups: " + JSON.stringify(newWeightGroups));
 
         let course = this.state.course;
         course.weight_groups = newWeightGroups;
@@ -37,33 +49,30 @@ export default class UserClasses extends React.Component {
     updateGrade (editedWeightGroup, id) {
         let weightGroups = this.state.course.weight_groups;
         weightGroups[id] = editedWeightGroup;
-        console.log("PassedID: " + id);
-        console.log(JSON.stringify(weightGroups[0]));
 
         var updatedGrade = 0;
         // compute weighted average
         for (var i = 0; i < weightGroups.length; i++) {
-            let weight = 0;
-            if (weightGroups[i].weight !== '')
-                weight = parseInt(weightGroups[i].weight);
+            const weight = weightGroups[i].weight;
+            const grade = weightGroups[i].grade;
 
-            updatedGrade += weightGroups[i].grade * (weight / 100);
+            updatedGrade += grade * (weight / 100);
         }
 
         let course = this.state.course;
         course.weight_groups = weightGroups;
         course.grade = Math.round(updatedGrade);
+        this.setGradeColor();
 
         this.setState({course: course});
     }
 
     render () {
         const thisComponent = this;
-
         return (
             <div id="container">
                 {/* Current Course Grade Pill */}
-                <h2 className="GradeDisplay">{Math.round(this.state.course.grade)}%</h2>
+                <h2 className="GradeDisplay" style={{color: this.state.backgroundColor, borderColor: this.state.backgroundColor}}>{Math.round(this.state.course.grade)}%</h2>
 
                 <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups}/>
 
@@ -73,7 +82,14 @@ export default class UserClasses extends React.Component {
                 {this.state.course.weight_groups &&
                     <div className="tableViewContainer">
                         {this.state.course.weight_groups.map(weightGroup => {
-                            return <TableView className="table-view" weightGroup={weightGroup} wid={weightGroup.id} key={weightGroup.id} updateTotalGrade={thisComponent.updateGrade}/>;
+                            return <TableView 
+                                    className="table-view" 
+                                    weightGroup={weightGroup} 
+                                    wid={weightGroup.id} 
+                                    key={weightGroup.id} 
+                                    saveData={this.props.saveData}
+                                    deleteWeightGroup={this.props.deleteWeightGroup} 
+                                    updateTotalGrade={thisComponent.updateGrade}/>;
                         })}
                     </div>
                 }

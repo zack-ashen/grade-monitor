@@ -16,6 +16,7 @@ export default class AssignmentRow extends React.Component {
         this.updateAssignmentName = this.updateAssignmentName.bind(this);
         this.updatePointsEarned = this.updatePointsEarned.bind(this);
         this.updatePointsPossible = this.updatePointsPossible.bind(this);
+        this.onBlur = this.onBlur.bind(this);
     }
 
     componentDidUpdate (prevProps, prevState) {
@@ -44,16 +45,17 @@ export default class AssignmentRow extends React.Component {
 
     updatePointsEarned (event) {
         const updatedPointsEarned = parseInt(event.target.value) || 0;
-        const updatedGrade = event.target.value / this.state.points_possible * 100;
+        const pointsPossible = parseInt(this.state.points_possible) || 0;
+        const updatedGrade = (updatedPointsEarned / pointsPossible) * 100;
 
-        this.setState({points_earned: updatedPointsEarned,
+        this.setState({points_earned: event.target.value,
                         grade: updatedGrade});
         
         const updatedAssignment = {
             id: this.state.id,
             name: this.state.assignment_name,
             points_possible: this.state.points_possible,
-            points_earned: updatedPointsEarned
+            points_earned: event.target.value
         };
 
         this.props.updateWeightGrade(updatedAssignment);
@@ -61,28 +63,57 @@ export default class AssignmentRow extends React.Component {
 
     updatePointsPossible (event) {
         const updatedPointsPossible = parseInt(event.target.value) || 0;
-        const updatedGrade = (this.state.points_earned / updatedPointsPossible) * 100;
+        const pointsEarned = parseInt(this.state.pointsEarned) || 0;
+        const updatedGrade = (pointsEarned / updatedPointsPossible) * 100;
 
-        this.setState({points_possible: updatedPointsPossible,
+        this.setState({points_possible: event.target.value,
                         grade: updatedGrade});
 
         const updatedAssignment = {
             id: this.state.id,
             name: this.state.assignment_name,
-            points_possible: updatedPointsPossible,
+            points_possible: event.target.value,
             points_earned: this.state.points_earned
         };
         
         this.props.updateWeightGrade(updatedAssignment);
     }
 
+    onBlur(event, inputType) {
+        if (event.target.value === '') {
+            this.setState({[inputType]: 0})
+        }
+        this.props.saveData();
+    }
+
     render () {
         return (
             <>
             <tr>
-                <td className="data"><input type="text" className="assignment-input" value={this.state.assignment_name} onChange={this.updateAssignmentName} /></td>
-                <td className="data"><input type="text" className="points-earned-input" value={this.state.points_earned} onChange={this.updatePointsEarned} /></td>
-                <td className="data"><input type="text" className="points-possible-input" value={this.state.points_possible} onChange={this.updatePointsPossible} /></td>
+                <td className="data">
+                    <input 
+                        type="text" 
+                        className="assignment-input" 
+                        value={this.state.assignment_name} 
+                        onChange={this.updateAssignmentName} 
+                        onBlur={this.props.saveData} />
+                </td>
+                <td className="data">
+                    <input 
+                        type="text" 
+                        className="points-earned-input" 
+                        value={this.state.points_earned} 
+                        onChange={this.updatePointsEarned} 
+                        onBlur={(e) => this.onBlur(e, 'points_earned')} />
+                </td>
+                <td className="data">
+                    <input 
+                        type="text" 
+                        className="points-possible-input" 
+                        value={this.state.points_possible} 
+                        onChange={this.updatePointsPossible} 
+                        onBlur={(e) => this.onBlur(e, 'points_possible')} />
+                </td>
                 <td className="data">{Math.round(this.state.grade)}%</td>
             </tr>
             </>

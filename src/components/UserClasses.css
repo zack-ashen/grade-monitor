@@ -6,7 +6,7 @@
 .tableViewContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 80%;
     align-items: center;
     text-align: center;

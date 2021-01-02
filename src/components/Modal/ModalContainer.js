@@ -39,10 +39,7 @@ export class ModalContainer extends React.Component {
         <button className={this.props.buttonStyle} ref={(n) => (this.TriggerButton = n)} onClick={this.showModal}>{this.props.triggerText}</button>
         {this.state.isShown ? (
           <Modal
-            onSubmit={this.props.onSubmit}
             modalRef={(n) => (this.modal = n)}
-            buttonRef={(n) => (this.closeButton = n)}
-            closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
             children={this.props.children}

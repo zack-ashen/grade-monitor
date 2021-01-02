@@ -25,11 +25,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: top;
+    margin-bottom: 0.75vw;
 }
 
 #form_title {
     margin-top: 0;
-    margin-bottom: 1vw;
+    margin-bottom: 0;
 }
 
 #exit_button {
@@ -49,7 +50,7 @@
     margin-top: 0.5vw;
     width: 100%;
     font-size: 1.4vw;
-    padding: 0.6vw 0.6vw 0.6vw 1vw;
+    padding: 0.2vw 0.2vw 0.2vw 1vw;
     box-sizing: border-box;
     border-color: #99B0C6;
     border-style: solid;

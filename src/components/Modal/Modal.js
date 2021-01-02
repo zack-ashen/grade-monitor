@@ -6,10 +6,7 @@ export const Modal = ({
   onClickOutside,
   onKeyDown,
   modalRef,
-  buttonRef,
-  closeModal,
-  children,
-  onSubmit
+  children
 }) => {
   return ReactDOM.createPortal(
     <FocusTrap>

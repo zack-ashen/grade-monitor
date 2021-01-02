@@ -58,7 +58,7 @@ export default class Nav extends React.Component {
             <div className="Nav">
                 <h1 id="nav_header">Grade Book</h1>
                 <div id="button-container">
-                    <ModalContainer triggerText={'Add Class'} onSubmit={this.handleSubmit} buttonStyle={"add_class"} ref={this.modalContainer}>
+                    <ModalContainer triggerText={'Add Class'} buttonStyle={"add_class"} ref={this.modalContainer}>
                         <div id="modal_header">
                             <h2 id="form_title">Add a Class</h2>
                             <button onClick={() => this.modalContainer.current.closeModal()} id="exit_button">
@@ -72,8 +72,8 @@ export default class Nav extends React.Component {
                             </label>
                             <input type="submit" value="Finish" className="add_class" id="submit"/>
                         </form>
-
                     </ModalContainer>
+                    
                     <Logout />
                 </div>
             </div>
