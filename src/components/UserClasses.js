@@ -183,7 +183,7 @@ export default class UserClasses extends React.Component {
                 {this.state.hasClasses && <div id="container">
                     <CourseNav classes={this.state.classes} curClass={this.state.curClassName} setCurClass={this.setCurCourse}/>
 
-                    <CourseView course={this.state.course} key={this.state.course} saveData={this.saveData} deleteWeightGroup={this.state.deleteWeightGroup}/>
+                    <CourseView course={this.state.course} key={this.state.course} saveData={this.saveData} deleteWeightGroup={this.deleteWeightGroup}/>
 
                 </div>}
             </div>
