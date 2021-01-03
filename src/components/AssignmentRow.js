@@ -90,7 +90,7 @@ export default class AssignmentRow extends React.Component {
         return (
             <>
             <tr>
-                <td className="data">
+                <td className="data" className="assignment-field">
                     <input 
                         type="text" 
                         className="assignment-input" 
@@ -98,7 +98,7 @@ export default class AssignmentRow extends React.Component {
                         onChange={this.updateAssignmentName} 
                         onBlur={this.props.saveData} />
                 </td>
-                <td className="data">
+                <td className="data" className="points-earned-field">
                     <input 
                         type="text" 
                         className="points-earned-input" 
@@ -106,7 +106,7 @@ export default class AssignmentRow extends React.Component {
                         onChange={this.updatePointsEarned} 
                         onBlur={(e) => this.onBlur(e, 'points_earned')} />
                 </td>
-                <td className="data">
+                <td className="data" className="points-possible-field">
                     <input 
                         type="text" 
                         className="points-possible-input" 
@@ -114,7 +114,7 @@ export default class AssignmentRow extends React.Component {
                         onChange={this.updatePointsPossible} 
                         onBlur={(e) => this.onBlur(e, 'points_possible')} />
                 </td>
-                <td className="data">{Math.round(this.state.grade)}%</td>
+                <td className="data grade-field">{Math.round(this.state.grade)}%</td>
             </tr>
             </>
         )

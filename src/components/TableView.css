@@ -42,6 +42,7 @@
 
 table {
     border-collapse: collapse;
+    table-layout: fixed;
     font-size: 0.9vw;
 }
 
@@ -50,10 +51,12 @@ th {
 }
 
 tr {
+    text-align: center;
     display: flex;
-    align-items: center;
+    justify-content: center;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 #header-row {
@@ -66,6 +69,22 @@ tr {
 
 #grade-header {
     text-align: center;
+}
+
+.assignment-field {
+    width: 30%;
+}
+
+.points-earned-field {
+    width: 25%;
+}
+
+.points-possible-field {
+    width: 25%;
+}
+
+.grade-field {
+    width: 20%;
 }
 
 .add-new-assignment {
@@ -120,6 +139,18 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.new-assignment-input {
+    width: 100%;
+}
+
+.new-points-earned-input {
+    width: 50%;
+}
+
+.new-points-possible-input {
+    width: 50%;
 }
 
 .weight-input {

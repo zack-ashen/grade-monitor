@@ -9,7 +9,7 @@
 .points-earned-input {
     text-align: center;
     border: none;
-    width: 4ch;
+    width: 50%;
     font-size: 0.9vw;
     transition: all 0.2s ease 0s;
 }
@@ -17,7 +17,7 @@
 .points-possible-input {
     text-align: center;
     border: none;
-    width: 4ch;
+    width: 50%;
     font-size: 0.9vw;
     transition: all 0.2s ease 0s;
 }
@@ -31,6 +31,6 @@ tr {
     padding-bottom: 0.75vw;
 }
 
-/* .assignment-input:hover, .points-earned-input:hover, .points-possible-input:hover {
-    border: solid 0.1vw #99B0C6;
-} */
+.assignment-input:hover, .points-earned-input:hover, .points-possible-input:hover {
+    background-color: #E7EFF7;
+}

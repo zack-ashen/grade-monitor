@@ -11,28 +11,17 @@ export default class UserClasses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: this.props.course,
-            backgroundColor: ''
+            course: this.props.course
         }
 
 
         this.updateGrade = this.updateGrade.bind(this);
         this.addClassWeight = this.addClassWeight.bind(this);
-        this.setGradeColor = this.setGradeColor.bind(this);
-    }
-
-    setGradeColor () {
-        this.setState({backgroundColor: gradeColor(this.state.course.grade)});
-    }
-
-    componentDidMount () {
-        this.setGradeColor();
     }
 
     componentDidUpdate (prevProps, prevState) {
         if (this.props.course !== prevProps.course) {
             this.setState({course: this.props.course});
-            this.setGradeColor();
         }
     }
 
@@ -72,7 +61,7 @@ export default class UserClasses extends React.Component {
         return (
             <div id="container">
                 {/* Current Course Grade Pill */}
-                <h2 className="GradeDisplay" style={{color: this.state.backgroundColor, borderColor: this.state.backgroundColor}}>{Math.round(this.state.course.grade)}%</h2>
+                <h2 className="GradeDisplay" style={{color: gradeColor(this.state.course.grade), borderColor: gradeColor(this.state.course.grade)}}>{Math.round(this.state.course.grade)}%</h2>
 
                 <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups}/>
 
