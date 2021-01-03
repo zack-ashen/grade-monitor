@@ -159,7 +159,7 @@ export default class UserClasses extends React.Component {
 
     deleteWeightGroup (weightGroupId) {
         let updatedWeightGroups = this.state.course.weight_groups;
-        updatedWeightGroups.splice(updatedWeightGroups[weightGroupId], 1);
+        updatedWeightGroups.splice(weightGroupId, 1);
 
         let updatedCourse = this.state.course;
         updatedCourse.weight_groups = updatedWeightGroups;

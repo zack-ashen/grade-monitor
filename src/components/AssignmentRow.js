@@ -1,4 +1,9 @@
 import React from "react";
+import "./Button.css";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 import "./AssignmentRow.css";
 
 export default class AssignmentRow extends React.Component {
@@ -21,7 +26,8 @@ export default class AssignmentRow extends React.Component {
 
     componentDidUpdate (prevProps, prevState) {
         if (prevProps.assignment !== this.props.assignment) {
-            this.setState({assignment_name: this.props.assignment.name,
+            this.setState({id: this.props.id,
+                           assignment_name: this.props.assignment.name,
                            points_earned: this.props.assignment.points_earned,
                            points_possible: this.props.assignment.points_possible,
                            grade: (this.props.assignment.points_earned / this.props.assignment.points_possible) * 100});
@@ -115,6 +121,7 @@ export default class AssignmentRow extends React.Component {
                         onBlur={(e) => this.onBlur(e, 'points_possible')} />
                 </td>
                 <td className="data grade-field">{Math.round(this.state.grade)}%</td>
+                <td className="data trashField deleteAssignmentField"><button className="deleteAssignmentButton" onClick={(e) => this.props.deleteAssignment(e, this.state.id)}><FontAwesomeIcon icon={faTrash} /></button></td>
             </tr>
             </>
         )

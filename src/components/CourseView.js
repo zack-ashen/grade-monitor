@@ -51,7 +51,6 @@ export default class UserClasses extends React.Component {
         let course = this.state.course;
         course.weight_groups = weightGroups;
         course.grade = Math.round(updatedGrade);
-        this.setGradeColor();
 
         this.setState({course: course});
     }

@@ -6,7 +6,7 @@ export default class CourseNav extends React.Component {
 
     render () {
         return (
-            <div>
+            <div className="courseNavContainer">
                 {this.props.classes.map(course => {
                         if (course === this.props.curClass) {
                             return (

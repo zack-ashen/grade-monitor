@@ -1,6 +1,7 @@
-.nav_container {
+.courseNavContainer {
     display: inline-block;
-    margin-top: 4vw;
+    width: 80%;
+    margin: auto;
 }
 
 #course_button {

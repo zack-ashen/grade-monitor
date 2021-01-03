@@ -17,6 +17,7 @@ export default class TableView extends React.Component {
             weight: this.props.weightGroup.weight,
             assignments: this.props.weightGroup.assignments,
             grade: this.props.weightGroup.grade,
+            name: this.props.weightGroup.name,
             new_assignment: '',
             new_points_earned: '',
             new_points_possible: '',
@@ -31,6 +32,9 @@ export default class TableView extends React.Component {
         this.addNewAssignment = this.addNewAssignment.bind(this);
         this.weightOnBlur = this.weightOnBlur.bind(this);
         this.deleteSelf = this.deleteSelf.bind(this);
+        this.setWeightGroupName = this.setWeightGroupName.bind(this);
+        this.deleteAssignment = this.deleteAssignment.bind(this);
+
         this.modalContainer = React.createRef();
     }
 
@@ -39,8 +43,13 @@ export default class TableView extends React.Component {
             this.setState({id: this.props.weightGroup.id,
                            weight: this.props.weightGroup.weight,
                            assignments: this.props.weightGroup.assignments,
-                           grade: this.props.weightGroup.grade});
+                           grade: this.props.weightGroup.grade,
+                           name: this.props.weightGroup.name});
         }
+    }
+
+    setWeightGroupName (event) {
+        this.setState({name: event.target.value});
     }
 
     setWeight (event) {
@@ -147,6 +156,50 @@ export default class TableView extends React.Component {
         }
     }
 
+    deleteAssignment (_, assignmentId) {
+        let updatedAssignments = this.state.assignments;
+        updatedAssignments.splice(assignmentId, 1);
+
+        let totalPointsEarned = 0;
+        let totalPointsPossible = 0;
+        for (let i = 0; i < updatedAssignments.length; i++) {
+            totalPointsEarned = totalPointsEarned + updatedAssignments[i].points_earned;
+            totalPointsPossible = totalPointsPossible + updatedAssignments[i].points_possible;
+        }
+
+        let newGrade = (assignmentId > 0) ? ((totalPointsEarned / totalPointsPossible) * 100) : 0;
+        this.setState({assignments: updatedAssignments,
+                       grade: newGrade});
+
+        const updatedWeightGroup = {
+            id: this.state.id,
+            name: this.state.name,
+            grade: newGrade,
+            weight: this.state.weight,
+            assignments: updatedAssignments
+        }
+
+        this.props.updateTotalGrade(updatedWeightGroup, this.state.id);
+        this.props.saveData();
+    }
+
+    weightNameOnBlur (event) {
+        if (event.target.value === '') {
+            this.setState({name: this.props.weightGroup.name});
+        } else {
+            const newWeightGroup = {
+                id: this.state.id,
+                name: this.state.name,
+                grade: this.state.grade,
+                weight: this.state.weight,
+                assignments: this.state.assignments
+            }
+
+            this.props.updateTotalGrade(newWeightGroup, this.state.id);
+            this.props.saveData();
+        }
+    }
+
     weightOnBlur (event) {
         if (event.target.value === '') {
             this.setState({weight: 0});
@@ -160,7 +213,8 @@ export default class TableView extends React.Component {
         return (
             <div className="TableView">
                 <div id="table-top">
-                    <h3 id="table-header">{this.props.weightGroup.name}</h3>
+                    {/* <h3 id="table-header">{this.props.weightGroup.name}</h3> */}
+                    <input type="text" className="weightGroupName" value={this.state.name} onChange={this.setWeightGroupName}/>
                     <ModalContainer triggerText={<FontAwesomeIcon icon={faTimes}/>} buttonStyle={"delete_button"} ref={this.modalContainer}>
                         <div id="modal_header">
                             <h2 id="form_title">Are you sure?</h2>
@@ -181,9 +235,16 @@ export default class TableView extends React.Component {
                             <th className="points-earned-field">Points Earned</th>
                             <th className="points-possible-field">Points Possible</th>
                             <th id="grade-header" className="grade-field">Grade</th>
+                            <th className="deleteAssignmentField"></th>
                         </tr>
                         {this.state.assignments.map(function(assignment, key) {
-                            return <AssignmentRow assignment={assignment} key={key} updateWeightGrade={thisComponent.updateGrade} id={assignments.indexOf(assignment)} saveData={thisComponent.props.saveData}/>;
+                            return <AssignmentRow 
+                                    assignment={assignment} 
+                                    key={key} 
+                                    updateWeightGrade={thisComponent.updateGrade} 
+                                    id={assignments.indexOf(assignment)} 
+                                    saveData={thisComponent.props.saveData}
+                                    deleteAssignment={thisComponent.deleteAssignment}/>;
                         })}
                         <tr>
                             <td className="data assignment-field"><input type="text" className="new-assignment-input" value={this.state.new_assignment} onChange={this.setNewAssignment}/></td>

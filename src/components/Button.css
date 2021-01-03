@@ -100,3 +100,14 @@ button {
 .deleteWeightButton:hover {
     transform: translateY(-1px);
 }
+
+.deleteAssignmentButton {
+    background: none;
+    border: none;
+    color: #65809B;
+    transition: all 0.2s ease 0s;
+}
+
+.deleteAssignmentButton:hover {
+    color: #DE3643;
+}
