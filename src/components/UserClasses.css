@@ -42,8 +42,25 @@
     margin-top: 1vw;
     line-height: 2.8vw;
     color: #36DEA3;
-    display: inline-block;
     font-size: 2.5vw;
     font-weight: 700;
     border-bottom: solid 0.45vw #36DEA3;
+    display: inline-block;
+}
+
+.gradeDisplayContainer {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 30%;
+}
+
+.gradeDisplayCol {
+    flex: 1;
+}
+
+.editClassContainer {
+    display: flex;
+    align-self: left;
+    margin-bottom: 1vw;
 }

@@ -251,6 +251,7 @@ export default class TableView extends React.Component {
                             <td className="data points-earned-field"><input type="number" className="new-points-earned-input" value={this.state.new_points_earned} onChange={this.setNewPointsEarned}/></td>
                             <td className="data points-possible-field"><input type="number" className="new-points-possible-input" value={this.state.new_points_possible} onChange={this.setNewPointsPossible}/></td>
                             <td className="data grade-field"><button className="add-new-assignment" onClick={this.addNewAssignment} ><FontAwesomeIcon icon={faCheckCircle} className="add-new-assignment-text" /></button></td>
+                            <td className="data deleteAssignmentField"></td>
                         </tr>
                     </tbody>
                 </table>

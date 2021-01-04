@@ -162,7 +162,7 @@ input {
 .weight-input {
     width: 3ch;
     font-size: 1vw;
-    padding: 0.1vw 0.1vw 0.1vw 0.4vw;
+    padding: 0.1vw 0.1vw 0vw 0.4vw;
 }
 
 #weight-grade {

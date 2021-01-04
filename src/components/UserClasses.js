@@ -19,9 +19,7 @@ export default class UserClasses extends React.Component {
         this.state = {
             uid: null,
             hasClasses: false,
-            addClassModal: false,
             classes: [],
-            curClassName: '',
             curClassGrade: 100,
             course: {},
             cachedCourse: {},
@@ -32,6 +30,8 @@ export default class UserClasses extends React.Component {
         this.setCurCourse = this.setCurCourse.bind(this);
         this.updateGrade = this.updateGrade.bind(this);
         this.deleteWeightGroup = this.deleteWeightGroup.bind(this);
+        this.editClassName = this.editClassName.bind(this);
+        this.deleteClass = this.deleteClass.bind(this);
         this.saveData = this.saveData.bind(this);
     }
 
@@ -153,8 +153,7 @@ export default class UserClasses extends React.Component {
         const newCourseDoc = await newCourseRef.get();
         const newCourseData = newCourseDoc.data();
 
-        await this.setState({curClassName: event.target.value,
-                             course: newCourseData});
+        await this.setState({course: newCourseData});
     }
 
     deleteWeightGroup (weightGroupId) {
@@ -168,10 +167,49 @@ export default class UserClasses extends React.Component {
         this.saveData();
     }
 
+    editClassName (oldName, newName) {
+        let updatedClasses = this.state.classes;
+        const courseIndex = updatedClasses.indexOf(oldName);
+        updatedClasses[courseIndex] = newName;
+
+        let updatedCourse = this.state.course;
+        updatedCourse.name = newName;
+
+        this.setState({classes: updatedClasses,
+                       course: updatedCourse});
+        this.saveData();
+    }
+
+    async deleteClass (course) {
+        const res = await db.collection('users').doc(this.state.uid).collection('classes').doc(course.name).delete();
+        
+        let updatedClasses = this.state.classes;
+        updatedClasses.splice(updatedClasses.indexOf(course.name), 1);
+        if (updatedClasses.length === 0) {
+            this.setState({
+                course: {},
+                classes: updatedClasses,
+                hasClasses: false,
+                cachedCourse: {}
+            });
+        } else {
+            const updatedCourseName = updatedClasses[0];
+            const courseRef = db.collection('users').doc(this.state.uid).collection('classes').doc(updatedCourseName);
+            const courseDoc = await courseRef.get();
+            const updatedCourse = courseDoc.data();
+            this.setState({
+                course: updatedCourse,
+                classes: updatedClasses,
+                cachedCourse: updatedCourse
+            });
+        }
+
+    }
+
     render() {
         return (
             <div className="UserClasses">
-                <Nav addClass={this.addClass} showAddClassModal={this.showAddClassModal}/>
+                <Nav addClass={this.addClass}/>
 
                 {!this.state.hasClasses && <div id="container">
                     <div className="blurb" id="message-blurb">
@@ -181,9 +219,9 @@ export default class UserClasses extends React.Component {
                 }
 
                 {this.state.hasClasses && <div id="container">
-                    <CourseNav classes={this.state.classes} curClass={this.state.curClassName} setCurClass={this.setCurCourse}/>
+                    <CourseNav classes={this.state.classes} curClass={this.state.course.name} setCurClass={this.setCurCourse}/>
 
-                    <CourseView course={this.state.course} key={this.state.course} saveData={this.saveData} deleteWeightGroup={this.deleteWeightGroup}/>
+                    <CourseView course={this.state.course} key={this.state.course} saveData={this.saveData} deleteWeightGroup={this.deleteWeightGroup} deleteClass={this.deleteClass} editClassName={this.editClassName}/>
 
                 </div>}
             </div>

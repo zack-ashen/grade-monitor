@@ -1,6 +1,7 @@
 import React from "react";
 import TableView from "./TableView";
 import AddClassWeight from "./AddClassWeight";
+import EditClass from "./EditClass";
 
 import gradeColor from "../utils/gradeColor";
 
@@ -14,9 +15,10 @@ export default class UserClasses extends React.Component {
             course: this.props.course
         }
 
-
         this.updateGrade = this.updateGrade.bind(this);
         this.addClassWeight = this.addClassWeight.bind(this);
+        this.editClassName = this.editClassName.bind(this);
+        this.deleteSelf = this.deleteSelf.bind(this);
     }
 
     componentDidUpdate (prevProps, prevState) {
@@ -55,14 +57,31 @@ export default class UserClasses extends React.Component {
         this.setState({course: course});
     }
 
+    deleteSelf () {
+        this.props.deleteClass(this.state.course);
+    }
+
+    editClassName (oldName, newName) {
+        let updatedCourse = this.state.course;
+        updatedCourse.name = newName;
+        this.setState({course: updatedCourse});
+
+        this.props.editClassName(oldName, newName);
+    }
+
     render () {
         const thisComponent = this;
+
         return (
             <div id="container">
                 {/* Current Course Grade Pill */}
-                <h2 className="GradeDisplay" style={{color: gradeColor(this.state.course.grade), borderColor: gradeColor(this.state.course.grade)}}>{Math.round(this.state.course.grade)}%</h2>
+                <div className="gradeDisplayContainer">
+                    <div className="gradeDisplayCol"></div>
+                    <div className="gradeDisplayCol"><h2 className="GradeDisplay" style={{color: gradeColor(this.state.course.grade), borderColor: gradeColor(this.state.course.grade)}}>{Math.round(this.state.course.grade)}%</h2></div>
+                    <div className="gradeDisplayCol editClassContainer"><EditClass editClassName={this.props.editClassName} deleteSelf={this.deleteSelf} name={this.state.course.name} /></div>
+                </div>
 
-                <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups}/>
+                <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups} />
 
                 {/* <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button> */}
 

@@ -1,0 +1,7 @@
+.submitContainer {
+    margin-top: 1.5vw;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
