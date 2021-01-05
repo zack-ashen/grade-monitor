@@ -1,4 +1,5 @@
 import React from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import TableView from "./TableView";
 import AddClassWeight from "./AddClassWeight";
 import EditClass from "./EditClass";

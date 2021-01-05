@@ -1,14 +1,19 @@
 import React from "react";
 import ModalContainer from "./Modal/ModalContainer";
+import { Transition } from "react-transition-group";
+import Message from "./Message";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import "./AddClassWeight.css";
+
 
 export default class AddClassWeight extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            newWeightGroupValue: ''
+            newWeightGroupValue: '',
+            showErrorMessage: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,16 +27,20 @@ export default class AddClassWeight extends React.Component {
     }
 
     handleSubmit (event) {
-        this.modalContainer.current.closeModal();
-
         const weightGroups = this.props.weightGroups;
 
         let alreadyContains = false;
         for (let i = 0; i < weightGroups.length; i++) {
-            if (weightGroups[i].name === this.state.newWeightGroupValue) alreadyContains = true;
+            if (weightGroups[i].name === this.state.newWeightGroupValue) {
+                alreadyContains = true;
+                this.setState({showErrorMessage: true});
+                event.preventDefault();
+            }
         }
 
         if (!alreadyContains) {
+            this.modalContainer.current.closeModal();
+
             const newWeightGroup = {
                 name: this.state.newWeightGroupValue,
                 id: weightGroups.length,
@@ -44,13 +53,14 @@ export default class AddClassWeight extends React.Component {
                 ]
             };
 
-            console.log("New Weight Group: " + newWeightGroup.id);
-
             this.setState({newWeightGroupValue: ''});
             this.props.addWeight(newWeightGroup);
-        }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
+    }
+
+    closeErrorMessage () {
 
     }
 
@@ -70,7 +80,9 @@ export default class AddClassWeight extends React.Component {
                     </label>
                     <input type="submit" value="Finish" className="add_class" id="submit"/>
                 </form>
-
+                {this.state.alreadyContains && 
+                    <Message text={"Please use a unique name. You can't have multiple weight groups with the same name."} type={"modalError"}/>
+                }
             </ModalContainer>
         );
     }

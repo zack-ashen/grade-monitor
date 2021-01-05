@@ -20,7 +20,6 @@ export default class UserClasses extends React.Component {
             uid: null,
             hasClasses: false,
             classes: [],
-            curClassGrade: 100,
             course: {},
             cachedCourse: {},
             writes: 0
@@ -58,8 +57,7 @@ export default class UserClasses extends React.Component {
                         userdb.collection('classes').doc(classId).get().then(function(doc) {
                             var curClass = doc.data();
                             currentComponent.setState({course: doc.data(),
-                                                       cachedCourse: doc.data(),
-                                                       curClassGrade: curClass.grade});
+                                                       cachedCourse: doc.data()});
                         });
                     } else {
                         this.setState({hasClasses: false});
@@ -76,11 +74,11 @@ export default class UserClasses extends React.Component {
         this._isMounted = false;
     }
 
-    saveData() {
+    saveData(courseName = this.state.course.name) {
         if (this.state.course !== this.state.cachedCourse && this.state.writes < 5000)
             this.setState({cachedCourse: this.state.course,
                            writes: this.state.writes + 1});
-            db.collection('users').doc(this.state.uid).collection("classes").doc(this.state.course.name).set(this.state.course);
+            db.collection('users').doc(this.state.uid).collection("classes").doc(courseName).set(this.state.course);
     }
 
     addClass (newClassName) {
@@ -167,7 +165,7 @@ export default class UserClasses extends React.Component {
         this.saveData();
     }
 
-    editClassName (oldName, newName) {
+    async editClassName (oldName, newName) {
         let updatedClasses = this.state.classes;
         const courseIndex = updatedClasses.indexOf(oldName);
         updatedClasses[courseIndex] = newName;
@@ -177,7 +175,11 @@ export default class UserClasses extends React.Component {
 
         this.setState({classes: updatedClasses,
                        course: updatedCourse});
-        this.saveData();
+
+        const newDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(newName).set(updatedCourse);
+        const deleteOldDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(oldName).delete();
+
+
     }
 
     async deleteClass (course) {
