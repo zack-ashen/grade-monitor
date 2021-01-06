@@ -35,13 +35,12 @@ export default class AssignmentRow extends React.Component {
     }
 
     updateAssignmentName (event) {
-        const newAssignmentName = event.target.value;
 
-        this.setState({assignment_name: newAssignmentName});
+        this.setState({assignment_name: event.target.value});
 
         const updatedAssignment = {
             id: this.state.id,
-            name: newAssignmentName,
+            name: event.target.value,
             points_possible: this.state.points_possible,
             points_earned: this.state.points_earned
         };
@@ -102,7 +101,7 @@ export default class AssignmentRow extends React.Component {
                         className="assignment-input" 
                         value={this.state.assignment_name} 
                         onChange={this.updateAssignmentName} 
-                        onBlur={this.props.saveData} />
+                        onBlur={() => this.props.saveData()} />
                 </td>
                 <td className="data" className="points-earned-field">
                     <input 

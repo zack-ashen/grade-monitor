@@ -75,9 +75,11 @@ export default class UserClasses extends React.Component {
     }
 
     saveData(courseName = this.state.course.name) {
+        console.log(JSON.stringify(this.state.course));
         if (this.state.course !== this.state.cachedCourse && this.state.writes < 5000)
             this.setState({cachedCourse: this.state.course,
                            writes: this.state.writes + 1});
+
             db.collection('users').doc(this.state.uid).collection("classes").doc(courseName).set(this.state.course);
     }
 
@@ -101,7 +103,8 @@ export default class UserClasses extends React.Component {
                                     grade: 100,
                                     weight: 100,
                                     assignments: [
-                                        { name: "Example Assignment",
+                                        { 
+                                        name: "Example Assignment",
                                         points_earned: 20,
                                         points_possible: 20 },
                                     ]
@@ -140,6 +143,8 @@ export default class UserClasses extends React.Component {
         let course = this.state.course;
         course.weight_groups = weightGroups;
         course.grade = updatedGrade;
+
+        console.log(JSON.stringify(course));
 
         this.setState({course: course});
     }
