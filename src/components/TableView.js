@@ -100,8 +100,14 @@ export default class TableView extends React.Component {
         let totalPointsEarned = 0;
         let totalPointsPossible = 0;
         for (let i = 0; i < assignments.length; i++) {
-            totalPointsEarned = totalPointsEarned + assignments[i].points_earned;
-            totalPointsPossible = totalPointsPossible + assignments[i].points_possible;
+            let assignPE = assignments[i].points_earned;
+            let assignPP = assignments[i].points_possible;
+
+            if (isNaN(assignPE)) assignPE = 0;
+            if (isNaN(assignPP)) assignPP = 1;
+
+            totalPointsEarned += assignPE;
+            totalPointsPossible += assignPP;
         }
 
         let newGrade = (totalPointsEarned / totalPointsPossible) * 100;

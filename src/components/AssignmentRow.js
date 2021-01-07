@@ -15,7 +15,7 @@ export default class AssignmentRow extends React.Component {
             assignment_name: this.props.assignment.name,
             points_earned: this.props.assignment.points_earned,
             points_possible: this.props.assignment.points_possible,
-            grade: (this.props.assignment.points_earned / this.props.assignment.points_possible) * 100
+            grade: this.setGrade(this.props.assignment.points_earned, this.props.assignment.points_possible)
         }
 
         this.updateAssignmentName = this.updateAssignmentName.bind(this);
@@ -30,17 +30,25 @@ export default class AssignmentRow extends React.Component {
                            assignment_name: this.props.assignment.name,
                            points_earned: this.props.assignment.points_earned,
                            points_possible: this.props.assignment.points_possible,
-                           grade: (this.props.assignment.points_earned / this.props.assignment.points_possible) * 100});
+                           grade: this.setGrade(this.props.assignment.points_earned, this.props.assignment.points_possible)});
         }
     }
 
-    updateAssignmentName (event) {
+    setGrade (pointsEarned, pointsPossible) {
+        if (isNaN(pointsEarned)) pointsEarned = 0;
+        if (isNaN(pointsPossible)) pointsPossible = 1;
 
-        this.setState({assignment_name: event.target.value});
+        return (pointsEarned / pointsPossible) * 100;
+    }
+
+    updateAssignmentName (event) {
+        let updatedAssignmentName = event.target.value;
+
+        this.setState({assignment_name: updatedAssignmentName});
 
         const updatedAssignment = {
             id: this.state.id,
-            name: event.target.value,
+            name: updatedAssignmentName,
             points_possible: this.state.points_possible,
             points_earned: this.state.points_earned
         };
@@ -49,35 +57,32 @@ export default class AssignmentRow extends React.Component {
     }
 
     updatePointsEarned (event) {
-        const updatedPointsEarned = parseInt(event.target.value) || 0;
-        const pointsPossible = parseInt(this.state.points_possible) || 0;
-        const updatedGrade = (updatedPointsEarned / pointsPossible) * 100;
+        const updatedPointsEarned = parseInt(event.target.value);
+        const updatedGrade = this.setGrade(updatedPointsEarned, this.props.points_possible);
 
-        this.setState({points_earned: event.target.value,
+        this.setState({points_earned: updatedPointsEarned,
                         grade: updatedGrade});
         
         const updatedAssignment = {
             id: this.state.id,
             name: this.state.assignment_name,
             points_possible: this.state.points_possible,
-            points_earned: event.target.value
+            points_earned: updatedPointsEarned
         };
 
         this.props.updateWeightGrade(updatedAssignment);
     }
 
     updatePointsPossible (event) {
-        const updatedPointsPossible = parseInt(event.target.value) || 0;
-        const pointsEarned = parseInt(this.state.pointsEarned) || 0;
-        const updatedGrade = (pointsEarned / updatedPointsPossible) * 100;
-
-        this.setState({points_possible: event.target.value,
+        const updatedPointsPossible = parseInt(event.target.value);
+        const updatedGrade = this.setGrade(this.props.points_earned, updatedPointsPossible);
+        this.setState({points_possible: updatedPointsPossible,
                         grade: updatedGrade});
 
         const updatedAssignment = {
             id: this.state.id,
             name: this.state.assignment_name,
-            points_possible: event.target.value,
+            points_possible: updatedPointsPossible,
             points_earned: this.state.points_earned
         };
         
@@ -105,7 +110,7 @@ export default class AssignmentRow extends React.Component {
                 </td>
                 <td className="data" className="points-earned-field">
                     <input 
-                        type="text" 
+                        type="number" 
                         className="points-earned-input" 
                         value={this.state.points_earned} 
                         onChange={this.updatePointsEarned} 
@@ -113,7 +118,7 @@ export default class AssignmentRow extends React.Component {
                 </td>
                 <td className="data" className="points-possible-field">
                     <input 
-                        type="text" 
+                        type="number" 
                         className="points-possible-input" 
                         value={this.state.points_possible} 
                         onChange={this.updatePointsPossible} 

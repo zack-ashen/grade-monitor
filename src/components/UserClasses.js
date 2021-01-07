@@ -75,7 +75,6 @@ export default class UserClasses extends React.Component {
     }
 
     saveData(courseName = this.state.course.name) {
-        console.log(JSON.stringify(this.state.course));
         if (this.state.course !== this.state.cachedCourse && this.state.writes < 5000)
             this.setState({cachedCourse: this.state.course,
                            writes: this.state.writes + 1});
