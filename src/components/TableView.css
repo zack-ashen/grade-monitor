@@ -3,6 +3,7 @@
     border-radius: 1vw;
     box-shadow: 0.26vw 0.26vw #CCCFD1;
     padding: 0vw 1.8vw 0.8vw 1.8vw;
+    margin-bottom: 3.5vw;
     width: 40%;
     transition: all 0.2s ease-in-out;
     height: fit-content;
