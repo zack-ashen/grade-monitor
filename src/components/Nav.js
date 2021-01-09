@@ -56,7 +56,7 @@ export default class Nav extends React.Component {
     render(){
         return (
             <div className="Nav">
-                <h1 id="nav_header">Grade Book</h1>
+                <h1 className="navHeader">Grade Monitor</h1>
                 <div id="button-container">
                     <ModalContainer triggerText={'Add Class'} buttonStyle={"add_class"} ref={this.modalContainer}>
                         <div id="modal_header">

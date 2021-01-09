@@ -1,8 +1,8 @@
 .assignment-input {
     border: none;
-    font-size: 0.8vw;
+    font-size: 1em;
     width: 90%;
-    padding: 0 5% 0 5%;
+    padding: 0.25rem 1rem 0.25rem 1rem;
     text-align: center;
     transition: all 0.05s ease 0s;
 }
@@ -11,7 +11,8 @@
     text-align: center;
     border: none;
     width: 50%;
-    font-size: 0.8vw;
+    padding: 0.25rem 0rem 0.25rem 0rem;
+    font-size: 1em;
     transition: all 0.2s ease 0s;
 }
 
@@ -19,17 +20,18 @@
     text-align: center;
     border: none;
     width: 50%;
-    font-size: 0.8vw;
+    padding: 0.25rem 0rem 0.25rem 0rem;
+    font-size: 1em;
     transition: all 0.2s ease 0s;
 }
 
 tr {
-    border-bottom: 0.1vw solid #DFEAF5;
+    border-bottom: 0.1rem solid #DFEAF5;
 }
 
 .data {
-    padding-top: 0.6vw;
-    padding-bottom: 0.6vw;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 .assignment-input:hover, .points-earned-input:hover, .points-possible-input:hover {
