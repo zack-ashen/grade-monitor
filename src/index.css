@@ -11,6 +11,23 @@ body {
     font-family: Poppins; 
 }
 
+h1 {
+    font-size: 2.5rem;
+}
+
 input[type=text]:focus {
     border-color: #29A0FF;
-  }
+
+}
+
+@media only screen and (max-width: 850px) {
+    html {
+        font-size: 0.75em;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    html {
+        font-size: 0.5em;
+    }
+}

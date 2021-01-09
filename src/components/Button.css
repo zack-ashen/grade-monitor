@@ -154,3 +154,19 @@ button {
         border-radius: 100%;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    #sign_in {
+        font-size: 1.75em;
+        border-radius: 1rem;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    #sign_in {
+        font-size: 2.2em;
+        border-radius: 1rem;
+        display: block;
+        margin: auto;
+    }
+}
