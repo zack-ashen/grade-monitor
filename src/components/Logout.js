@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 import "./Button.css";
 
-function Logout() {
+function Logout(props) {
     let history = useHistory();
 
     const logout = () => firebase.auth().signOut().then(function() {
@@ -18,7 +18,7 @@ function Logout() {
       });
 
     return (
-        <button onClick={logout} id="sign_out">Logout</button>
+        <button onClick={logout} id="sign_out">{props.text}</button>
     );
 }
 

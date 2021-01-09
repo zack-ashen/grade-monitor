@@ -36,27 +36,6 @@
     }
   }
   
-  ._modal-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5em;
-    line-height: 1;
-    background: #F4F7FA;
-    border: 0;
-    box-shadow: 0;
-    cursor: pointer;
-  }
-  
-  ._modal-close-icon {
-    width: 25px;
-    height: 25px;
-    fill: transparent;
-    stroke: black;
-    stroke-linecap: round;
-    stroke-width: 2;
-  }
-  
   .modal-body {
     padding-top: 0.25em;
   }

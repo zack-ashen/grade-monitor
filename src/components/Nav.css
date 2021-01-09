@@ -26,7 +26,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: top;
-    margin-bottom: 0.75vw;
+    margin-bottom: 0.8rem;
 }
 
 #form_title {
@@ -40,23 +40,27 @@
     border: none;
     cursor: pointer;
     background: none;
-    font-size: 1.5vw;
+    font-size: 1.5em;
 }
 
 #class_form {
     display: block;
 }
 
+#input_title {
+    font-size: 1em;
+}
+
 #class_name_input {
-    margin-top: 0.5vw;
+    margin-top: 0.5rem;
     width: 100%;
-    font-size: 1.3vw;
-    padding: 0.2vw 0.2vw 0.2vw 0.7vw;
+    font-size: 1.3em;
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
     box-sizing: border-box;
     border-color: #99B0C6;
     border-style: solid;
-    border-width: 0.1vw;
-    border-radius: 0.3vw;
+    border-width: 0.1rem;
+    border-radius: 0.4rem;
     outline: none;
     font-family: Poppins;
     color: #65809B;
@@ -77,9 +81,8 @@
 
   #submit {
       float: right;
-      margin-top: 1vw;
+      margin-top: 1rem;
       color: white;
       font-family: Poppins;
       font-weight: 500;
-      width: 7vw;
   }

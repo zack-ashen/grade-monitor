@@ -78,7 +78,7 @@ export default class AddClassWeight extends React.Component {
                         <span id="input_title">Weight Group Name<br/></span>
                         <input type="text" id="class_name_input" value={this.state.newWeightGroupValue} placeholder="Ex. Quizzes" onChange={this.handleChange}/>
                     </label>
-                    <input type="submit" value="Finish" className="add_class" id="submit"/>
+                    <input type="submit" value="Finish" className="finishButton" id="submit"/>
                 </form>
                 {this.state.alreadyContains && 
                     <Message text={"Please use a unique name. You can't have multiple weight groups with the same name."} type={"modalError"}/>

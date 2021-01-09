@@ -5,7 +5,7 @@ import Logout from "./Logout";
 import ModalContainer from "./Modal/ModalContainer";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 import { auth, db } from "../firebase";
 
@@ -13,13 +13,23 @@ export default class Nav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            newClassValue: ''
+            newClassValue: '',
+            width: window.innerWidth
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleResize = this.handleResize.bind(this);
 
         this.modalContainer = React.createRef();
+    }
+
+    componentDidMount () {
+        window.addEventListener('resize', this.handleResize)
+    }
+
+    handleResize() {
+        this.setState({width: window.innerWidth});
     }
 
     handleChange(event) {
@@ -54,11 +64,18 @@ export default class Nav extends React.Component {
     }
 
     render(){
+        let addClassText = 'Add Class';
+        let logoutText = 'Logout';
+        if (this.state.width <= 1090) {
+            addClassText = <FontAwesomeIcon icon={faPlus} />
+            logoutText = <FontAwesomeIcon icon={faSignOutAlt} />
+        }
+
         return (
             <div className="Nav">
                 <h1 className="navHeader">Grade Monitor</h1>
                 <div id="button-container">
-                    <ModalContainer triggerText={'Add Class'} buttonStyle={"add_class"} ref={this.modalContainer}>
+                    <ModalContainer triggerText={addClassText} buttonStyle={"add_class"} ref={this.modalContainer}>
                         <div id="modal_header">
                             <h2 id="form_title">Add a Class</h2>
                             <button onClick={() => this.modalContainer.current.closeModal()} id="exit_button">
@@ -70,11 +87,11 @@ export default class Nav extends React.Component {
                                 <span id="input_title">Class Name<br/></span>
                                 <input type="text" id="class_name_input" value={this.state.newClassValue} placeholder="Ex. MATH 1110" onChange={this.handleChange}/>
                             </label>
-                            <input type="submit" value="Finish" className="add_class" id="submit"/>
+                            <input type="submit" value="Finish" className="finishButton" id="submit"/>
                         </form>
                     </ModalContainer>
                     
-                    <Logout />
+                    <Logout text={logoutText}/>
                 </div>
             </div>
         );
