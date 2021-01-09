@@ -10,8 +10,8 @@ export default function App() {
         <div className="App">
             {/* Desktop */}
             {width > 450 && <>
-            <h1 className="blurbHeader signInBlurb">Grade Monitor</h1>
-            <div className="blurb">
+            <h1 className="blurbHeader">Grade Monitor</h1>
+            <div className="blurb signInBlurb">
                 <p className="blurb-text signInBlurbText">Welcome to Grade Monitor. Enter your classes weighting and your assignments to dynamically see your current grade in the class and save it. You can come back throughout the semester to update your grades and see your current standing.</p>
                 <Login />
             </div>
