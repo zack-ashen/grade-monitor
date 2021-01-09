@@ -218,7 +218,7 @@ export default class UserClasses extends React.Component {
                 <Nav addClass={this.addClass}/>
 
                 {!this.state.hasClasses && <div id="container">
-                    <div className="blurb" id="message-blurb">
+                    <div className="blurb noClassBlurb" id="message-blurb">
                         <p className="blurb-text">It looks like you don’t have any classes yet! Let’s add one to get started.</p>
                     </div>
                 </div>
