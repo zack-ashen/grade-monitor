@@ -1,5 +1,4 @@
 import React from "react";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import TableView from "./TableView";
 import AddClassWeight from "./AddClassWeight";
 import EditClass from "./EditClass";
@@ -22,7 +21,7 @@ export default class UserClasses extends React.Component {
         this.deleteSelf = this.deleteSelf.bind(this);
     }
 
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate (prevProps) {
         if (this.props.course !== prevProps.course) {
             this.setState({course: this.props.course});
         }
@@ -83,8 +82,6 @@ export default class UserClasses extends React.Component {
                 </div>
 
                 <AddClassWeight addWeight={this.addClassWeight} weightGroups={this.state.course.weight_groups} />
-
-                {/* <button id="add_class_weight" onClick={this.addClassWeight}>Add Class Weight</button> */}
 
                 {/* Map tables of assignments */}
                 {this.state.course.weight_groups &&

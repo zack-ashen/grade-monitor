@@ -1,6 +1,5 @@
 import React from "react";
 import ModalContainer from "./Modal/ModalContainer";
-import { Transition } from "react-transition-group";
 import Message from "./Message";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -55,7 +55,6 @@ export default class UserClasses extends React.Component {
 
                         let currentComponent = this;
                         userdb.collection('classes').doc(classId).get().then(function(doc) {
-                            var curClass = doc.data();
                             currentComponent.setState({course: doc.data(),
                                                        cachedCourse: doc.data()});
                         });
