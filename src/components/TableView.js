@@ -31,6 +31,7 @@ export default class TableView extends React.Component {
         this.updateGrade = this.updateGrade.bind(this);
         this.addNewAssignment = this.addNewAssignment.bind(this);
         this.weightOnBlur = this.weightOnBlur.bind(this);
+        this.weightNameOnBlur = this.weightNameOnBlur.bind(this);
         this.deleteSelf = this.deleteSelf.bind(this);
         this.setWeightGroupName = this.setWeightGroupName.bind(this);
         this.deleteAssignment = this.deleteAssignment.bind(this);
@@ -220,7 +221,7 @@ export default class TableView extends React.Component {
             <div className="TableView">
                 <div id="table-top">
                     {/* <h3 id="table-header">{this.props.weightGroup.name}</h3> */}
-                    <input type="text" className="weightGroupName" value={this.state.name} onChange={this.setWeightGroupName}/>
+                    <input type="text" className="weightGroupName" value={this.state.name} onChange={this.setWeightGroupName} onBlur={this.weightNameOnBlur}/>
                     <ModalContainer triggerText={<FontAwesomeIcon icon={faTimes}/>} buttonStyle={"delete_button"} ref={this.modalContainer}>
                         <div id="modal_header">
                             <h2 id="form_title">Are you sure?</h2>
