@@ -21,7 +21,13 @@
 .firebaserc
 firebase.js
 /.firebase
+.eslintcache
+hosting.*
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.firebaserc
+.eslintcache
+.firebase/*.cache
+.github/
