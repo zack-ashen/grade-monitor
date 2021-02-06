@@ -1,0 +1,88 @@
+.Nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 1.5rem auto auto auto;
+}
+
+.navHeader {
+    font-size: 2.2em;
+    margin: 0;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Modal Content */
+
+#modal_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: top;
+    margin-bottom: 0.8rem;
+}
+
+#form_title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#exit_button {
+    color: #718CA5;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+    font-size: 1.5em;
+}
+
+#class_form {
+    display: block;
+}
+
+#input_title {
+    font-size: 1em;
+}
+
+#class_name_input {
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 1.3em;
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+    box-sizing: border-box;
+    border-color: #99B0C6;
+    border-style: solid;
+    border-width: 0.1rem;
+    border-radius: 0.4rem;
+    outline: none;
+    font-family: Poppins;
+    color: #65809B;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #CCDDED;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #CCDDED;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #CCDDED;
+  }
+
+  #submit {
+      float: right;
+      margin-top: 1rem;
+      color: white;
+      font-family: Poppins;
+      font-weight: 500;
+  }
