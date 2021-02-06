@@ -25,5 +25,4 @@ yarn-error.log*
 .eslintcache
 .firebase/*.cache
 .github/
-firebase.json
-firebase.js
+firebase.*
