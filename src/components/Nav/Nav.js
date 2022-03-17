@@ -1,13 +1,13 @@
 import React from "react";
 import "./Nav.css";
-import "./Button.css";
-import Logout from "./Logout";
-import ModalContainer from "./Modal/ModalContainer";
+import "../Button.css";
+import Logout from "../Logout";
+import ModalContainer from "../Modal/ModalContainer";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 
 export default class Nav extends React.Component {
     constructor(props) {

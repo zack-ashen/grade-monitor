@@ -26,7 +26,7 @@ button {
     border: none;
     border-radius: 0.5rem;
     padding: 0.5em 3em 0.5em 3em;
-    font-size: 1.1em;
+    font-size: 0.9em;
 }
 
 #sign_out:hover {
@@ -37,8 +37,8 @@ button {
     background-color: #29A0FF;
     border: none;
     border-radius: 0.5rem;
-    padding: 0.7rem 2rem 0.7rem 2rem;
-    font-size: 1em;
+    padding: 0.7rem 1.8rem 0.7rem 1.8rem;
+    font-size: 0.9em;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -55,7 +55,7 @@ button {
     border: none;
     border-radius: 0.5rem;
     padding: 0.5em 3em 0.5em 3em;
-    font-size: 1.1em;
+    font-size: 0.9em;
     margin-right: 2rem;
 }
 

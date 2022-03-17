@@ -1,6 +1,6 @@
 import React from "react";
-import ModalContainer from "./Modal/ModalContainer";
-import Message from "./Message";
+import ModalContainer from "../Modal/ModalContainer";
+import Message from "../Message/Message";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';

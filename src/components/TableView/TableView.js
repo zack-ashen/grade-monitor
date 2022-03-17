@@ -1,8 +1,8 @@
 import React from "react";
-import AssignmentRow from "./AssignmentRow";
-import ModalContainer from "./Modal/ModalContainer"
+import AssignmentRow from "../AssignmentRow/AssignmentRow";
+import ModalContainer from "../Modal/ModalContainer"
 
-import gradeColor from "../utils/gradeColor";
+import gradeColor from "../../utils/gradeColor";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCheckCircle } from '@fortawesome/free-solid-svg-icons';

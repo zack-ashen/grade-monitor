@@ -1,13 +1,13 @@
 import React from "react";
-import Nav from "./Nav";
-import CourseNav from "./CourseNav";
-import CourseView from "./CourseView";
+import Nav from "../Nav/Nav";
+import CourseNav from "../CourseNav/CourseNav";
+import CourseView from "../CourseView";
 
-import {auth, db} from "../firebase";
+import {auth, db} from "../../firebase";
 
-import "./Blurb.css";
+import "../Blurb.css";
 import "./UserClasses.css";
-import "./Button.css";
+import "../Button.css";
 
 var userdb;
 

@@ -1,11 +1,11 @@
 import React from "react";
-import TableView from "./TableView";
-import AddClassWeight from "./AddClassWeight";
-import EditClass from "./EditClass";
+import TableView from "./TableView/TableView";
+import AddClassWeight from "./AddClassWeight/AddClassWeight";
+import EditClass from "./EditClass/EditClass";
 
 import gradeColor from "../utils/gradeColor";
 
-import "./UserClasses.css";
+import "./UserClasses/UserClasses.css";
 import "./Button.css";
 
 export default class UserClasses extends React.Component {
