@@ -1,19 +1,6 @@
+import express from 'express';
 
-
-const express = require('express')
 const router = express.Router()
-
-
-router.post('/new', (req, res) => {
-
-
-})
-
-
-router.post('/update', (req, res) => {
-
-})
-
 
 router.route('/:id') 
     .get((req, res) => {
@@ -23,9 +10,10 @@ router.route('/:id')
         res.send("Delete course: " + req.params.id)
     })
     .put((req, res) => {
-        res.send("Get course: " + req.params.id)
+        res.send("Put course: " + req.params.id)
     })
-
-
+    .post((req, res) => {
+        res.send("Post course");
+    })
 
 export default router;
