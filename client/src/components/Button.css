@@ -6,17 +6,12 @@ button {
     transition: transform 0.2s ease-in-out;
 }
 
-#sign_in {
-    background-color: #36DEA3;
+#signInButton {
+    background: none;
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.5em 3em 0.5em 3em;
-    font-size: 1.25rem;
-    font-weight: 500;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-#sign_in:hover {
+#signInButton:hover {
     transform: translateY(-2px);
 }
 

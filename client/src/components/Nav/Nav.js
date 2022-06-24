@@ -7,8 +7,6 @@ import ModalContainer from "../Modal/ModalContainer";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
-import { auth, db } from "../../firebase";
-
 export default class Nav extends React.Component {
     constructor(props) {
         super(props);
@@ -38,25 +36,25 @@ export default class Nav extends React.Component {
 
     handleSubmit(event) {
         this.modalContainer.current.closeModal();
-        var userdb = db.collection('users').doc(auth.currentUser.uid);
+        // var userdb = db.collection('users').doc(auth.currentUser.uid);
         
-        userdb.collection("classes").doc(this.state.newClassValue).set({
-            name: this.state.newClassValue,
-            grade: 100,
-            weight_groups: [
-                {   
-                    id: 0,
-                    name: "Homework",
-                    grade: 100,
-                    weight: 100,
-                    assignments: [
-                        { name: "Example Assignment",
-                          points_earned: 20,
-                          points_possible: 20 },
-                    ]
-                },
-            ]
-        });
+        // userdb.collection("classes").doc(this.state.newClassValue).set({
+        //     name: this.state.newClassValue,
+        //     grade: 100,
+        //     weight_groups: [
+        //         {   
+        //             id: 0,
+        //             name: "Homework",
+        //             grade: 100,
+        //             weight: 100,
+        //             assignments: [
+        //                 { name: "Example Assignment",
+        //                   points_earned: 20,
+        //                   points_possible: 20 },
+        //             ]
+        //         },
+        //     ]
+        // });
 
         this.setState({newClassValue: ''});
         this.props.addClass(this.state.newClassValue);

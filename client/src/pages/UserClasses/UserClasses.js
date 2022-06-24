@@ -1,9 +1,7 @@
 import React from "react";
-import Nav from "../Nav/Nav";
-import CourseNav from "../CourseNav/CourseNav";
-import CourseView from "../CourseView";
-
-import {auth, db} from "../../firebase";
+import Nav from "../../components/Nav/Nav";
+import CourseNav from "../../components/CourseNav/CourseNav";
+import CourseView from "../../components/CourseView";
 
 import "../Blurb.css";
 import "./UserClasses.css";
@@ -37,33 +35,33 @@ export default class UserClasses extends React.Component {
     componentDidMount() {
         this._isMounted = true;
 
-        this.authSubscription = auth.onAuthStateChanged((user) => {
-            if (user && this._isMounted) {
-                this.setState({uid: user.uid});
-                userdb = db.collection('users').doc(user.uid);
+        // this.authSubscription = auth.onAuthStateChanged((user) => {
+        //     if (user && this._isMounted) {
+        //         this.setState({uid: user.uid});
+        //         userdb = db.collection('users').doc(user.uid);
 
-                userdb.collection('classes').get().then(snap => {
-                    if (snap.size > 0) {
-                        this.setState({hasClasses: true});
-                        let curClasses = [];
-                        snap.forEach(function(doc) {
-                            curClasses.push(doc.id);
-                        });
-                        this.setState({classes: curClasses,
-                                       curClassName: curClasses[0]});
-                        var classId = curClasses[0];
+        //         userdb.collection('classes').get().then(snap => {
+        //             if (snap.size > 0) {
+        //                 this.setState({hasClasses: true});
+        //                 let curClasses = [];
+        //                 snap.forEach(function(doc) {
+        //                     curClasses.push(doc.id);
+        //                 });
+        //                 this.setState({classes: curClasses,
+        //                                curClassName: curClasses[0]});
+        //                 var classId = curClasses[0];
 
-                        let currentComponent = this;
-                        userdb.collection('classes').doc(classId).get().then(function(doc) {
-                            currentComponent.setState({course: doc.data(),
-                                                       cachedCourse: doc.data()});
-                        });
-                    } else {
-                        this.setState({hasClasses: false});
-                    }
-                });
-            }
-        });
+        //                 let currentComponent = this;
+        //                 userdb.collection('classes').doc(classId).get().then(function(doc) {
+        //                     currentComponent.setState({course: doc.data(),
+        //                                                cachedCourse: doc.data()});
+        //                 });
+        //             } else {
+        //                 this.setState({hasClasses: false});
+        //             }
+        //         });
+        //     }
+        // });
     }
 
     /**
@@ -78,7 +76,7 @@ export default class UserClasses extends React.Component {
             this.setState({cachedCourse: this.state.course,
                            writes: this.state.writes + 1});
 
-            db.collection('users').doc(this.state.uid).collection("classes").doc(courseName).set(this.state.course);
+            // db.collection('users').doc(this.state.uid).collection("classes").doc(courseName).set(this.state.course);
     }
 
     addClass (newClassName) {
@@ -150,11 +148,11 @@ export default class UserClasses extends React.Component {
     async setCurCourse (event) {
         this.saveData();
 
-        const newCourseRef = db.collection('users').doc(this.state.uid).collection('classes').doc(event.target.value);
-        const newCourseDoc = await newCourseRef.get();
-        const newCourseData = newCourseDoc.data();
+        // const newCourseRef = db.collection('users').doc(this.state.uid).collection('classes').doc(event.target.value);
+        // const newCourseDoc = await newCourseRef.get();
+        // const newCourseData = newCourseDoc.data();
 
-        await this.setState({course: newCourseData});
+        // await this.setState({course: newCourseData});
     }
 
     deleteWeightGroup (weightGroupId) {
@@ -179,14 +177,14 @@ export default class UserClasses extends React.Component {
         this.setState({classes: updatedClasses,
                        course: updatedCourse});
 
-        const newDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(newName).set(updatedCourse);
-        const deleteOldDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(oldName).delete();
+        // const newDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(newName).set(updatedCourse);
+        // const deleteOldDoc = await db.collection("users").doc(this.state.uid).collection("classes").doc(oldName).delete();
 
 
     }
 
     async deleteClass (course) {
-        const res = await db.collection('users').doc(this.state.uid).collection('classes').doc(course.name).delete();
+        // const res = await db.collection('users').doc(this.state.uid).collection('classes').doc(course.name).delete();
         
         let updatedClasses = this.state.classes;
         updatedClasses.splice(updatedClasses.indexOf(course.name), 1);
@@ -199,14 +197,14 @@ export default class UserClasses extends React.Component {
             });
         } else {
             const updatedCourseName = updatedClasses[0];
-            const courseRef = db.collection('users').doc(this.state.uid).collection('classes').doc(updatedCourseName);
-            const courseDoc = await courseRef.get();
-            const updatedCourse = courseDoc.data();
-            this.setState({
-                course: updatedCourse,
-                classes: updatedClasses,
-                cachedCourse: updatedCourse
-            });
+            // const courseRef = db.collection('users').doc(this.state.uid).collection('classes').doc(updatedCourseName);
+            // const courseDoc = await courseRef.get();
+            // const updatedCourse = courseDoc.data();
+            // this.setState({
+            //     course: updatedCourse,
+            //     classes: updatedClasses,
+            //     cachedCourse: updatedCourse
+            // });
         }
 
     }
